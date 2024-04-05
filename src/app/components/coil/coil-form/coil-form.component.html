@@ -36,7 +36,7 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Resistencia</mat-label>
                     <mat-select formControlName="resistencia">
-                        @for (resistencia of resistenciaes; track resistencia.id) {
+                        @for (resistencia of resistencias; track resistencia.id) {
                             <mat-option [value]="resistencia">
                                 {{resistencia.ohms}}
                             </mat-option>
@@ -49,7 +49,7 @@
                     <mat-select formControlName="marca">
                         @for (marca of marcas; track marca.id) {
                             <mat-option [value]="marca">
-                                {{marca.nome}}
+                                {{marca.nome}}, {{marca.descricao}}
                             </mat-option>
                         }
                     </mat-select>

@@ -24,7 +24,7 @@ export class NicSaltService {
       nome: nicSalt.nome,
       valor: nicSalt.valor,
       descricao: nicSalt.descricao,
-      idCor: nicSalt.cor.id,
+      idSabor: nicSalt.sabor.id,
       idMarca: nicSalt.marca.id
     }
     return this.httpClient.post<NicSalt>(this.baseUrl, data);
@@ -35,7 +35,7 @@ export class NicSaltService {
       nome: nicSalt.nome,
       valor: nicSalt.valor,
       descricao: nicSalt.descricao,
-      idCor: nicSalt.cor.id,
+      idSabor: nicSalt.sabor.id,
       idMarca: nicSalt.marca.id
     }
     return this.httpClient.put<NicSalt>(`${this.baseUrl}/${nicSalt.id}`, data);
