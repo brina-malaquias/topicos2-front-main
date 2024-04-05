@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+
 import { NgFor } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -6,37 +7,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Marca } from '../../../models/marca.model';
-import { MarcaService } from '../../../services/marca.service';
+import { Sabor } from '../../../models/sabor.model';
+import { SaborService } from '../../../services/sabor.service';
 
 @Component({
-  selector: 'app-marca-list',
+  selector: 'app-sabor-list',
   standalone: true,
   imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
     , MatButtonModule, RouterModule, MatPaginatorModule],
-  templateUrl: './marca-list.component.html',
-  styleUrl: './marca-list.component.css'
+  templateUrl: './sabor-list.component.html',
+  styleUrl: './sabor-list.component.css'
 })
-export class MarcaListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
-  marcas: Marca[] = [];
+export class SaborListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'sabor', 'acao'];
+  sabores: Sabor[] = [];
 
   // variaveis de controle de paginacao
   totalRecords = 0;
   pageSize = 2;
   page = 0;
 
-  constructor(private marcaService: MarcaService) {
+  constructor(private saborService: SaborService) {
 
   }
 
   ngOnInit(): void {
-    this.marcaService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.marcas = data;
-      console.log(this.marcas);
+    this.saborService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.sabores = data;
+      console.log(this.sabores);
     });
 
-    this.marcaService.count().subscribe(data => {
+    this.saborService.count().subscribe(data => {
       this.totalRecords = data;
       console.log(this.totalRecords);
     });

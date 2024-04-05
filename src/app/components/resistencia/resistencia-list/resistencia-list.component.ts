@@ -6,37 +6,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Marca } from '../../../models/marca.model';
-import { MarcaService } from '../../../services/marca.service';
+import { ResistenciaService } from '../../../services/resistencia.service';
+import { Resistencia } from '../../../models/resistencia';
 
 @Component({
-  selector: 'app-marca-list',
+  selector: 'app-resistencia-list',
   standalone: true,
   imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
     , MatButtonModule, RouterModule, MatPaginatorModule],
-  templateUrl: './marca-list.component.html',
-  styleUrl: './marca-list.component.css'
+  templateUrl: './resistencia-list.component.html',
+  styleUrl: './resistencia-list.component.css'
 })
-export class MarcaListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
-  marcas: Marca[] = [];
+export class ResistenciaListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'ohms', 'acao'];
+  resistencias: Resistencia[] = [];
 
   // variaveis de controle de paginacao
   totalRecords = 0;
   pageSize = 2;
   page = 0;
 
-  constructor(private marcaService: MarcaService) {
+  constructor(private resistenciaService: ResistenciaService) {
 
   }
 
   ngOnInit(): void {
-    this.marcaService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.marcas = data;
-      console.log(this.marcas);
+    this.resistenciaService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.resistencias = data;
+      console.log(this.resistencias);
     });
 
-    this.marcaService.count().subscribe(data => {
+    this.resistenciaService.count().subscribe(data => {
       this.totalRecords = data;
       console.log(this.totalRecords);
     });

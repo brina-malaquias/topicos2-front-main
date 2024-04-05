@@ -3,42 +3,41 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validato
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { EstadoService } from '../../../services/estado.service';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { NgIf } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { Estado } from '../../../models/estado.model';
 import { EmptyError, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MarcaService } from '../../../services/marca.service';
-import { Marca } from '../../../models/marca.model';
+import { Sabor } from '../../../models/sabor.model';
+import { SaborService } from '../../../services/sabor.service';
 
 @Component({
-  selector: 'app-marca-form',
+  selector: 'app-sabor-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule],
-  templateUrl: './marca-form.component.html',
-  styleUrl: './marca-form.component.css'
+  templateUrl: './sabor-form.component.html',
+  styleUrl: './sabor-form.component.css'
 })
-export class MarcaFormComponent {
+export class SaborFormComponent {
 
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private marcaService: MarcaService,
+    private saborService: SaborService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
 
-    const marca: Marca = activatedRoute.snapshot.data['marca'];
+    const sabor: Sabor = activatedRoute.snapshot.data['sabor'];
 
     this.formGroup = formBuilder.group({
-      id: [(marca && marca.id) ? marca.id : null],
-      nome: [(marca && marca.nome) ? marca.nome : '', 
+      id: [(sabor && sabor.id) ? sabor.id : null],
+      sabor: [(sabor && sabor.sabor) ? sabor.sabor : '', 
             Validators.compose([Validators.required, 
-                                Validators.minLength(4)])],
-      descricao: [(marca && marca.descricao) ? marca.descricao : '', 
-            Validators.compose([Validators.required,
-                                Validators.minLength(2)])]
+                                Validators.minLength(3)])]
     });
 
   }
@@ -47,16 +46,16 @@ export class MarcaFormComponent {
     // marca todos os campos do formulario como 'touched'
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const marca = this.formGroup.value;
+      const sabor = this.formGroup.value;
 
       // operacao obtem o retorno de um observable de insert ou update
-      const operacao = marca.id == null
-      ? this.marcaService.insert(marca)
-      : this.marcaService.update(marca);
+      const operacao = sabor.id == null
+      ? this.saborService.insert(sabor)
+      : this.saborService.update(sabor);
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/marcas'),
+        next: () => this.router.navigateByUrl('/sabores'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -89,11 +88,11 @@ export class MarcaFormComponent {
 
   excluir() {
     if (this.formGroup.valid) {
-      const marca = this.formGroup.value;
-      if (marca.id != null) {
-        this.marcaService.delete(marca).subscribe({
+      const sabor = this.formGroup.value;
+      if (sabor.id != null) {
+        this.saborService.delete(sabor).subscribe({
           next: () => {
-            this.router.navigateByUrl('/marca');
+            this.router.navigateByUrl('/sabor');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -104,15 +103,9 @@ export class MarcaFormComponent {
   }
 
   errorMessages: {[controlName: string]: {[errorName: string] : string}} = {
-    marca: {
-      required: 'A marca deve ser informado.',
-      minlength: 'A marca deve possuir ao menos 4 caracteres.'
-    },
-    descricao: {
-      required: 'A descricao deve ser informada.',
-      minlength: 'A descricao deve possuir 3 caracteres.',
-      maxlength: 'A descricao deve possuir 40 caracteres.',
-      apiError: ' ' // mensagem da api
+    sabor: {
+      required: 'O sabor deve ser informado.',
+      minlength: 'O sabor deve possuir ao menos 4 caracteres.'
     }
   }
 

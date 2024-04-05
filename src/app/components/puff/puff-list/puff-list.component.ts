@@ -6,37 +6,37 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { Marca } from '../../../models/marca.model';
-import { MarcaService } from '../../../services/marca.service';
+import { Puff } from '../../../models/puff.model';
+import { PuffService } from '../../../services/puff.service';
 
 @Component({
-  selector: 'app-marca-list',
+  selector: 'app-puff-list',
   standalone: true,
   imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
     , MatButtonModule, RouterModule, MatPaginatorModule],
-  templateUrl: './marca-list.component.html',
-  styleUrl: './marca-list.component.css'
+  templateUrl: './puff-list.component.html',
+  styleUrl: './puff-list.component.css'
 })
-export class MarcaListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'descricao', 'acao'];
-  marcas: Marca[] = [];
+export class PuffListComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'quantidade', 'acao'];
+  puffs: Puff[] = [];
 
   // variaveis de controle de paginacao
   totalRecords = 0;
   pageSize = 2;
   page = 0;
 
-  constructor(private marcaService: MarcaService) {
+  constructor(private puffService: PuffService) {
 
   }
 
   ngOnInit(): void {
-    this.marcaService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.marcas = data;
-      console.log(this.marcas);
+    this.puffService.findAll(this.page, this.pageSize).subscribe(data => {
+      this.puffs = data;
+      console.log(this.puffs);
     });
 
-    this.marcaService.count().subscribe(data => {
+    this.puffService.count().subscribe(data => {
       this.totalRecords = data;
       console.log(this.totalRecords);
     });

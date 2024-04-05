@@ -49,7 +49,7 @@
                     <mat-select formControlName="marca">
                         @for (marca of marcas; track marca.id) {
                             <mat-option [value]="marca">
-                                {{marca.marca}}
+                                {{marca.nome}}
                             </mat-option>
                         }
                     </mat-select>

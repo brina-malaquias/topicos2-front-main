@@ -6,18 +6,30 @@
         <mat-card-content>
             <form [formGroup]="formGroup">
                 <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Marca</mat-label>
-                    <input matInput type="text" formControlName="marca">
-                    <mat-error *ngIf="formGroup.get('marca')?.errors && 
-                                      formGroup.get('marca')?.touched">
-                        @if (formGroup.get('marca')?.errors?.['required']) {
-                            <span>A marca deve ser informado.</span>
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="nome">
+                    <mat-error *ngIf="formGroup.get('nome')?.errors && 
+                                      formGroup.get('nome')?.touched">
+                        @if (formGroup.get('nome')?.errors?.['required']) {
+                            <span>O nome deve ser informado.</span>
                         } 
-                        @if (formGroup.get('marca')?.errors?.['minlength']) {
-                            <span>A marca deve possuir ao menos 3 caracteres.</span>
+                        @if (formGroup.get('nome')?.errors?.['minlength']) {
+                            <span>O nome deve possuir ao menos 4 caracteres.</span>
                         }
-                        @if (formGroup.get('marca')?.hasError('apiError')) {
-                            <span>{{ formGroup.get('marca')?.getError('apiError') }}</span>
+                        @if (formGroup.get('nome')?.hasError('apiError')) {
+                            <span>{{ formGroup.get('nome')?.getError('apiError') }}</span>
+                        }
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Descricao</mat-label>
+                    <input matInput type="text" formControlName="descricao">
+                    <mat-error *ngIf="formGroup.get('descricao')?.errors && 
+                                      formGroup.get('descricao')?.touched">
+                        {{getErrorMessage('descricao', formGroup.get('descricao')?.errors)}}
+
+                        @if (formGroup.get('descricao')?.hasError('apiError')) {
+                            <span>{{ formGroup.get('descricao')?.getError('apiError') }}</span>
                         }
                     </mat-error>
                 </mat-form-field>

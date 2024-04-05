@@ -9,54 +9,51 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { EmptyError, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MarcaService } from '../../../services/marca.service';
-import { Marca } from '../../../models/marca.model';
+import { ResistenciaService } from '../../../services/resistencia.service';
+import { Resistencia } from '../../../models/resistencia.model';
 
 @Component({
-  selector: 'app-marca-form',
+  selector: 'app-resistencia-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule],
-  templateUrl: './marca-form.component.html',
-  styleUrl: './marca-form.component.css'
+  templateUrl: './resistencia-form.component.html',
+  styleUrl: './resistencia-form.component.css'
 })
-export class MarcaFormComponent {
+export class ResistenciaFormComponent {
 
   formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-    private marcaService: MarcaService,
+    private resistenciaService: ResistenciaService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
 
-    const marca: Marca = activatedRoute.snapshot.data['marca'];
+    const resistencia: Resistencia = activatedRoute.snapshot.data['resistencia'];
 
     this.formGroup = formBuilder.group({
-      id: [(marca && marca.id) ? marca.id : null],
-      nome: [(marca && marca.nome) ? marca.nome : '', 
+      id: [(resistencia && resistencia.id) ? resistencia.id : null],
+      nome: [(resistencia && resistencia.quantidade) ? resistencia.quantidade : '', 
             Validators.compose([Validators.required, 
-                                Validators.minLength(4)])],
-      descricao: [(marca && marca.descricao) ? marca.descricao : '', 
-            Validators.compose([Validators.required,
-                                Validators.minLength(2)])]
+                                Validators.minLength(1)])]
     });
 
   }
 
   salvar() {
-    // marca todos os campos do formulario como 'touched'
+    // resistencia todos os campos do formulario como 'touched'
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const marca = this.formGroup.value;
+      const resistencia = this.formGroup.value;
 
       // operacao obtem o retorno de um observable de insert ou update
-      const operacao = marca.id == null
-      ? this.marcaService.insert(marca)
-      : this.marcaService.update(marca);
+      const operacao = resistencia.id == null
+      ? this.resistenciaService.insert(resistencia)
+      : this.resistenciaService.update(resistencia);
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/marcas'),
+        next: () => this.router.navigateByUrl('/resistencias'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -89,11 +86,11 @@ export class MarcaFormComponent {
 
   excluir() {
     if (this.formGroup.valid) {
-      const marca = this.formGroup.value;
-      if (marca.id != null) {
-        this.marcaService.delete(marca).subscribe({
+      const resistencia = this.formGroup.value;
+      if (resistencia.id != null) {
+        this.resistenciaService.delete(resistencia).subscribe({
           next: () => {
-            this.router.navigateByUrl('/marca');
+            this.router.navigateByUrl('/resistencia');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -104,15 +101,9 @@ export class MarcaFormComponent {
   }
 
   errorMessages: {[controlName: string]: {[errorName: string] : string}} = {
-    marca: {
-      required: 'A marca deve ser informado.',
-      minlength: 'A marca deve possuir ao menos 4 caracteres.'
-    },
-    descricao: {
-      required: 'A descricao deve ser informada.',
-      minlength: 'A descricao deve possuir 3 caracteres.',
-      maxlength: 'A descricao deve possuir 40 caracteres.',
-      apiError: ' ' // mensagem da api
+    resistencia: {
+      required: 'A resistencia deve ser informado.',
+      minlength: 'A resistencia deve possuir ao menos 1 caracteres.'
     }
   }
 

@@ -1,4 +1,5 @@
 export class Marca {
     id!: number;
-    marca!: number;
+    nome!: number;
+    descricao!: string;
 }

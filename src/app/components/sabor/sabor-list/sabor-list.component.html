@@ -1,13 +1,13 @@
 <mat-toolbar color="black">
     <div class="flex-container">
-      <span class="toolbar-title">Controle de Marcas</span>
-      <button mat-fab color="accent" routerLink="/marcas/new">
+      <span class="toolbar-title">Controle de Sabores</span>
+      <button mat-fab color="accent" routerLink="/sabores/new">
         <mat-icon>add</mat-icon>
       </button>
     </div>
   </mat-toolbar>
   
-  <table mat-table [dataSource]="marcas" class="mat-elevation-z8">
+  <table mat-table [dataSource]="sabores" class="mat-elevation-z8">
   
       <!-- Position Column -->
       <ng-container matColumnDef="id">
@@ -15,17 +15,11 @@
         <td mat-cell *matCellDef="let element"> {{element.id}} </td>
       </ng-container>
     
-      <!-- Nome Column -->
-      <ng-container matColumnDef="nome">
-        <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+      <!-- Sabor Column -->
+      <ng-container matColumnDef="sabor">
+        <th mat-header-cell *matHeaderCellDef> Sabor </th>
+        <td mat-cell *matCellDef="let element"> {{element.sabor}} </td>
       </ng-container>
-
-    <!-- Descricao Column -->
-    <ng-container matColumnDef="descricao">
-      <th mat-header-cell *matHeaderCellDef> Descricao </th>
-      <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
-    </ng-container>
   
       <!-- Acao Column -->
       <ng-container matColumnDef="acao">
@@ -33,7 +27,7 @@
         <td mat-cell *matCellDef="let element"> 
           <button mat-icon-button 
                   color="primary"
-                  routerLink="/marcas/edit/{{element.id}}">
+                  routerLink="/sabores/edit/{{element.id}}">
                   <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button 
