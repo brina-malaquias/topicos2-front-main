@@ -1,13 +1,13 @@
 <mat-toolbar color="black">
   <div class="flex-container">
-    <span class="toolbar-title">Controle de NicSalts</span>
-    <button mat-fab color="accent" routerLink="/nicSalts/new">
+    <span class="toolbar-title">Controle de Coils</span>
+    <button mat-fab color="accent" routerLink="/coils/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
 </mat-toolbar>
 
-<table mat-table [dataSource]="nicSalts" class="mat-elevation-z8">
+<table mat-table [dataSource]="coils" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
@@ -33,10 +33,10 @@
       <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
     </ng-container>
 
-    <!-- Sabor Column -->
-    <ng-container matColumnDef="sabor">
-      <th mat-header-cell *matHeaderCellDef> Sabor </th>
-      <td mat-cell *matCellDef="let element"> {{element.sabor.sabor}} </td>
+    <!-- Resistencia Column -->
+    <ng-container matColumnDef="resistencia">
+      <th mat-header-cell *matHeaderCellDef> Resistencia </th>
+      <td mat-cell *matCellDef="let element"> {{element.resistencia.quantidade}} /td>
     </ng-container>
 
     <!-- Marca Column -->

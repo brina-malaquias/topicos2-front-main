@@ -8,31 +8,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { PodRecarregavelService } from '../../../services/podRecarregavel.service';
-import { PodRecarregavel } from '../../../models/podRecarregavel.model';
-import { CorService } from '../../../services/cor.service';
+import { Estado } from '../../../models/estado.model';
+import { CoilService } from '../../../services/coil.service';
 import { MarcaService } from '../../../services/marca.service';
-import { Cor } from '../../../models/cor.model';
 import { Marca } from '../../../models/marca.model';
+import { Resistencia } from '../../../models/resistencia';
+import { Coil } from '../../../models/coil.models';
+import { ResistenciaService } from '../../../services/resistencia.service';
 
 @Component({
-  selector: 'app-podrecarregavel-form',
+  selector: 'app-coil-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
     RouterModule, MatSelectModule],
-  templateUrl: './podrecarregavel-form.component.html',
-  styleUrl: './podrecarregavel-form.component.css'
+  templateUrl: './coil-form.component.html',
+  styleUrl: './coil-form.component.css'
 })
-export class PodRecarregavelFormComponent implements OnInit {
+export class CoilFormComponent implements OnInit {
 
   formGroup: FormGroup;
-  cores: Cor[] = [];
+  resistencias: Resistencia[] = [];
   marcas: Marca[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private podrecarregavelService: PodRecarregavelService,
-    private corService: CorService,
+    private coilService: CoilService,
+    private resistenciaService: ResistenciaService,
     private marcaService: MarcaService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
@@ -42,13 +43,13 @@ export class PodRecarregavelFormComponent implements OnInit {
       nome: ['', Validators.required],
       valor: ['', Validators.required],
       descricao: ['', Validators.required],
-      cor: [null],
+      resistencia: [null],
       marca: [null]
     });
   }
   ngOnInit(): void {
-    this.corService.findAll().subscribe(data => {
-      this.cores = data;
+    this.resistenciaService.findAll().subscribe(data => {
+      this.resistencias = data;
       this.initializeForm();
     }),
     this.marcaService.findAll().subscribe(data => {
@@ -59,40 +60,40 @@ export class PodRecarregavelFormComponent implements OnInit {
 
   initializeForm() {
 
-    const podrecarregavel: PodRecarregavel = this.activatedRoute.snapshot.data['podrecarregavel'];
+    const coil: Coil = this.activatedRoute.snapshot.data['coil'];
 
     // selecionando o estado
-    const cor = this.cores
-      .find(cor => cor.id === (podrecarregavel?.cor?.id || null));
+    const resistencia = this.resistencias
+      .find(resistencia => resistencia.id === (coil?.resistencia?.id || null));
     const marca = this.marcas
-      .find(marca => marca.id === (podrecarregavel?.marca?.id || null));
+      .find(marca => marca.id === (coil?.marca?.id || null));
 
     this.formGroup = this.formBuilder.group({
-      id: [(podrecarregavel && podrecarregavel.id) ? podrecarregavel.id : null],
-      nome: [(podrecarregavel && podrecarregavel.nome) ? podrecarregavel.nome : '', Validators.required],
-      valor: [(podrecarregavel && podrecarregavel.valor) ? podrecarregavel.valor : '', Validators.required],
-      descricao: [(podrecarregavel && podrecarregavel.descricao) ? podrecarregavel.descricao : '', Validators.required],
-      cor: [cor],
+      id: [(coil && coil.id) ? coil.id : null],
+      nome: [(coil && coil.nome) ? coil.nome : '', Validators.required],
+      valor: [(coil && coil.valor) ? coil.valor : '', Validators.required],
+      descricao: [(coil && coil.descricao) ? coil.descricao : '', Validators.required],
+      sabor: [resistencia],
       marca: [marca]
     });
   }
 
   salvar() {
     if (this.formGroup.valid) {
-      const podrecarregavel = this.formGroup.value;
-      if (podrecarregavel.id ==null) {
-        this.podrecarregavelService.insert(podrecarregavel).subscribe({
-          next: (podrecarregavelCadastrado) => {
-            this.router.navigateByUrl('/podrecarregavels');
+      const coil = this.formGroup.value;
+      if (coil.id ==null) {
+        this.coilService.insert(coil).subscribe({
+          next: (coilCadastrado) => {
+            this.router.navigateByUrl('/coils');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
       } else {
-        this.podrecarregavelService.update(podrecarregavel).subscribe({
-          next: (podrecarregavelAlterado) => {
-            this.router.navigateByUrl('/podrecarregavels');
+        this.coilService.update(coil).subscribe({
+          next: (coilAlterado) => {
+            this.router.navigateByUrl('/coils');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -104,11 +105,11 @@ export class PodRecarregavelFormComponent implements OnInit {
 
   excluir() {
     if (this.formGroup.valid) {
-      const podrecarregavel = this.formGroup.value;
-      if (podrecarregavel.id != null) {
-        this.podrecarregavelService.delete(podrecarregavel).subscribe({
+      const coil = this.formGroup.value;
+      if (coil.id != null) {
+        this.coilService.delete(coil).subscribe({
           next: () => {
-            this.router.navigateByUrl('/podrecarregavels');
+            this.router.navigateByUrl('/coils');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));

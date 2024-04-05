@@ -5,28 +5,28 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { NicSalt } from '../../../models/nicSalt.model';
-import { NicSaltService } from '../../../services/nicSalt.service';
+import { CoilService } from '../../../services/coil.service';
+import { Coil } from '../../../models/coil.models';
 
 @Component({
-  selector: 'app-nicSalt-list',
+  selector: 'app-coil-list',
   standalone: true,
   imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
   , MatButtonModule, RouterModule],
-  templateUrl: './nicSalt-list.component.html',
-  styleUrl: './nicSalt-list.component.css'
+  templateUrl: './coil-list.component.html',
+  styleUrl: './coil-list.component.css'
 })
-export class NicSaltListComponent implements OnInit {
+export class CoilListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'valor', 'descricao', 'sabor', 'marca', 'acao'];
-  nicSalts: NicSalt[] = [];
+  coils: Coil[] = [];
 
-  constructor(private nicSaltService: NicSaltService) {
+  constructor(private coilService: CoilService) {
 
   }
 
   ngOnInit(): void {
-    this.nicSaltService.findAll().subscribe(data => {
-      this.nicSalts = data;
+    this.coilService.findAll().subscribe(data => {
+      this.coils = data;
     })
   }
 
