@@ -23,7 +23,7 @@ export class MarcaListComponent implements OnInit {
   marcas: Marca[] = [];
 
   // variaveis de controle de paginacao
-  totalRemarcads = 0;
+  totalRecords = 0;
   pageSize = 2;
   page = 0;
 
@@ -38,8 +38,8 @@ export class MarcaListComponent implements OnInit {
     });
 
     this.marcaService.count().subscribe(data => {
-      this.totalRemarcads = data;
-      console.log(this.totalRemarcads);
+      this.totalRecords = data;
+      console.log(this.totalRecords);
     });
   }
   // Método para paginar os resultados
