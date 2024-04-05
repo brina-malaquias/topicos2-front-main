@@ -33,6 +33,6 @@ export const routes: Routes = [
     { path: 'marcas/edit/:id', component: MarcaFormComponent, resolve: {marca: marcaResolver}},
 
     { path: 'podrecarregaveis', component: PodRecarregavelListComponent, title: 'Lista de Cores'},
-    { path: 'cores/new', component: PodRecarregavelFormComponent, title: 'Nova Cor'},
-    { path: 'cores/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
+    { path: 'podrecarregaveis/new', component: PodRecarregavelFormComponent, title: 'Nova Cor'},
+    { path: 'podrecarregaveis/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
 ];
