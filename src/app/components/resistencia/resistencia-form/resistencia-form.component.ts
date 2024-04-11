@@ -10,7 +10,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { EmptyError, Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResistenciaService } from '../../../services/resistencia.service';
-import { Resistencia } from '../../../models/resistencia.model';
+import { Resistencia } from '../../../models/resistencia';
 
 @Component({
   selector: 'app-resistencia-form',
@@ -33,7 +33,7 @@ export class ResistenciaFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(resistencia && resistencia.id) ? resistencia.id : null],
-      nome: [(resistencia && resistencia.quantidade) ? resistencia.quantidade : '', 
+      nome: [(resistencia && resistencia.ohms) ? resistencia.ohms : '', 
             Validators.compose([Validators.required, 
                                 Validators.minLength(1)])]
     });
