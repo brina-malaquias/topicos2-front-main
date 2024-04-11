@@ -7,7 +7,7 @@ import { PodDescartavel } from '../models/podDescartavel.model';
   providedIn: 'root'
 })
 export class PodDescartavelService {
-  private baseUrl = 'http://localhost:8080/podsRecarregaveis';
+  private baseUrl = 'http://localhost:8080/podsDescartaveis';
 
   constructor(private httpClient: HttpClient) {  }
 
