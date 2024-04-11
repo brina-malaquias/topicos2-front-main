@@ -73,7 +73,7 @@ export class CoilFormComponent implements OnInit {
       nome: [(coil && coil.nome) ? coil.nome : '', Validators.required],
       valor: [(coil && coil.valor) ? coil.valor : '', Validators.required],
       descricao: [(coil && coil.descricao) ? coil.descricao : '', Validators.required],
-      sabor: [resistencia],
+      resistencia: [resistencia],
       marca: [marca]
     });
   }

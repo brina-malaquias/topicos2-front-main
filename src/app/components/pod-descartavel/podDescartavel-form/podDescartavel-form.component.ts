@@ -95,7 +95,7 @@ export class PodDescartavelFormComponent implements OnInit {
       if (podDescartavel.id ==null) {
         this.podDescartavelService.insert(podDescartavel).subscribe({
           next: (podDescartavelCadastrado) => {
-            this.router.navigateByUrl('/podDescartavels');
+            this.router.navigateByUrl('/podsDescartaveis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -104,7 +104,7 @@ export class PodDescartavelFormComponent implements OnInit {
       } else {
         this.podDescartavelService.update(podDescartavel).subscribe({
           next: (podDescartavelAlterado) => {
-            this.router.navigateByUrl('/podDescartavels');
+            this.router.navigateByUrl('/podsDescartaveis');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -120,7 +120,7 @@ export class PodDescartavelFormComponent implements OnInit {
       if (podDescartavel.id != null) {
         this.podDescartavelService.delete(podDescartavel).subscribe({
           next: () => {
-            this.router.navigateByUrl('/podDescartavels');
+            this.router.navigateByUrl('/podsDescartaveis');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));

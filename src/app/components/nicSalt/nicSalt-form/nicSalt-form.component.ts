@@ -85,7 +85,7 @@ export class NicSaltFormComponent implements OnInit {
       if (nicSalt.id ==null) {
         this.nicSaltService.insert(nicSalt).subscribe({
           next: (nicSaltCadastrado) => {
-            this.router.navigateByUrl('/nicSalts');
+            this.router.navigateByUrl('/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -94,7 +94,7 @@ export class NicSaltFormComponent implements OnInit {
       } else {
         this.nicSaltService.update(nicSalt).subscribe({
           next: (nicSaltAlterado) => {
-            this.router.navigateByUrl('/nicSalts');
+            this.router.navigateByUrl('/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -110,7 +110,7 @@ export class NicSaltFormComponent implements OnInit {
       if (nicSalt.id != null) {
         this.nicSaltService.delete(nicSalt).subscribe({
           next: () => {
-            this.router.navigateByUrl('/nicSalts');
+            this.router.navigateByUrl('/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));

@@ -83,7 +83,7 @@ export class PodRecarregavelFormComponent implements OnInit {
       if (podrecarregavel.id ==null) {
         this.podrecarregavelService.insert(podrecarregavel).subscribe({
           next: (podrecarregavelCadastrado) => {
-            this.router.navigateByUrl('/podrecarregavels');
+            this.router.navigateByUrl('/podrecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -92,7 +92,7 @@ export class PodRecarregavelFormComponent implements OnInit {
       } else {
         this.podrecarregavelService.update(podrecarregavel).subscribe({
           next: (podrecarregavelAlterado) => {
-            this.router.navigateByUrl('/podrecarregavels');
+            this.router.navigateByUrl('/podrecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -108,7 +108,7 @@ export class PodRecarregavelFormComponent implements OnInit {
       if (podrecarregavel.id != null) {
         this.podrecarregavelService.delete(podrecarregavel).subscribe({
           next: () => {
-            this.router.navigateByUrl('/podrecarregavels');
+            this.router.navigateByUrl('/podrecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));

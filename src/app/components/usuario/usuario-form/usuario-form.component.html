@@ -54,7 +54,7 @@
                     <mat-select formControlName="telefone">
                         @for (telefone of telefones; track telefone.id) {
                             <mat-option [value]="telefone">
-                                {{telefone.codigoAres}}, {{telefone.numero}}
+                                {{telefone.codigoArea}}, {{telefone.numero}}
                             </mat-option>
                         }
                     </mat-select>
@@ -77,7 +77,7 @@
                 Excluir 
             </button>
             <button mat-raised-button  
-                    routerLink="/municipios"> 
+                    routerLink="/usuarios"> 
                 Cancelar 
             </button>
 

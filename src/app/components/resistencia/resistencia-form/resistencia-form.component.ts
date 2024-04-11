@@ -33,7 +33,7 @@ export class ResistenciaFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(resistencia && resistencia.id) ? resistencia.id : null],
-      nome: [(resistencia && resistencia.ohms) ? resistencia.ohms : '', 
+      ohms: [(resistencia && resistencia.ohms) ? resistencia.ohms : '', 
             Validators.compose([Validators.required, 
                                 Validators.minLength(1)])]
     });
@@ -44,12 +44,12 @@ export class ResistenciaFormComponent {
     // resistencia todos os campos do formulario como 'touched'
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const resistencia = this.formGroup.value;
+      const ohms = this.formGroup.value;
 
       // operacao obtem o retorno de um observable de insert ou update
-      const operacao = resistencia.id == null
-      ? this.resistenciaService.insert(resistencia)
-      : this.resistenciaService.update(resistencia);
+      const operacao = ohms.id == null
+      ? this.resistenciaService.insert(ohms)
+      : this.resistenciaService.update(ohms);
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({

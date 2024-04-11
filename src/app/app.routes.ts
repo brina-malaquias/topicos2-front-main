@@ -36,6 +36,8 @@ import { TelefoneFormComponent } from './components/telefone/telefone-form/telef
 import { ResistenciaListComponent } from './components/resistencia/resistencia-list/resistencia-list.component';
 import { ResistenciaFormComponent } from './components/resistencia/resistencia-form/resistencia-form.component';
 import { usuarioResolver } from './components/usuario/resolver/usuario-resolver';
+import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
+import { UsuarioFormComponent } from './components/usuario/usuario-form/usuario-form.component';
 
 export const routes: Routes = [
     { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
@@ -66,9 +68,9 @@ export const routes: Routes = [
     { path: 'nicsalts/new', component: NicSaltFormComponent, title: 'Nova Nicsalt'},
     { path: 'nicsalts/edit/:id', component: NicSaltFormComponent, resolve: {nicsalt: nicSalt}},
 
-    { path: 'podDescartaveis', component: PodDescartavelListComponent, title: 'Lista de Pod Descartaveis'},
-    { path: 'podDescartaveis/new', component: PodDescartavelFormComponent, title: 'Novo Pod Descartavel'},
-    { path: 'podDescartaveis/edit/:id', component: PodDescartavelFormComponent, resolve: {podDescartavel: podDescartavelResolver}},
+    { path: 'podsDescartaveis', component: PodDescartavelListComponent, title: 'Lista de Pod Descartaveis'},
+    { path: 'podsDescartaveis/new', component: PodDescartavelFormComponent, title: 'Novo Pod Descartavel'},
+    { path: 'podsDescartaveis/edit/:id', component: PodDescartavelFormComponent, resolve: {podDescartavel: podDescartavelResolver}},
 
     { path: 'puffs', component: PuffListComponent, title: 'Lista de Puffs'},
     { path: 'puffs/new', component: PuffFormComponent, title: 'Novo Puff'},
@@ -86,7 +88,7 @@ export const routes: Routes = [
     { path: 'telefones/new', component: TelefoneFormComponent, title: 'Novo Telefone'},
     { path: 'telefones/edit/:id', component: TelefoneFormComponent, resolve: {telefone: telefoneResolver}},
 
-    { path: 'usuarios', component: NicSaltListComponent, title: 'Lista de Usuarios'},
-    { path: 'usuarios/new', component: NicSaltFormComponent, title: 'Novo Usuario'},
-    { path: 'usuarios/edit/:id', component: NicSaltFormComponent, resolve: {usuario: usuarioResolver}},
+    { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
+    { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
+    { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuario: usuarioResolver}},
 ];

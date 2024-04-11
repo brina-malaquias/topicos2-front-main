@@ -19,7 +19,19 @@
   width: 60%;
 }
 
-.mat-column-estado {
+.mat-column-valor {
+  width: 40%;
+}
+
+.mat-column-descricao {
+  width: 40%;
+}
+
+.mat-column-sabor {
+  width: 40%;
+}
+
+.mat-column-marca {
   width: 40%;
 }
 

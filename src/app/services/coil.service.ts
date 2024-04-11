@@ -45,4 +45,8 @@ export class CoilService {
     return this.httpClient.delete<any>(`${this.baseUrl}/${coil.id}`);
   }
 
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
+  }
+
 }

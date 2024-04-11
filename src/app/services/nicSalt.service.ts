@@ -45,4 +45,7 @@ export class NicSaltService {
     return this.httpClient.delete<any>(`${this.baseUrl}/${nicSalt.id}`);
   }
 
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`);
+  }
 }

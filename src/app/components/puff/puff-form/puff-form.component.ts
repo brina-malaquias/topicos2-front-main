@@ -33,7 +33,7 @@ export class PuffFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(puff && puff.id) ? puff.id : null],
-      nome: [(puff && puff.quantidade) ? puff.quantidade : '', 
+      quantidade: [(puff && puff.quantidade) ? puff.quantidade : '', 
             Validators.compose([Validators.required, 
                                 Validators.minLength(3)])]
     });
@@ -44,12 +44,12 @@ export class PuffFormComponent {
     // puff todos os campos do formulario como 'touched'
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const puff = this.formGroup.value;
+      const quantidade = this.formGroup.value;
 
       // operacao obtem o retorno de um observable de insert ou update
-      const operacao = puff.id == null
-      ? this.puffService.insert(puff)
-      : this.puffService.update(puff);
+      const operacao = quantidade.id == null
+      ? this.puffService.insert(quantidade)
+      : this.puffService.update(quantidade);
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({

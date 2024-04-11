@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { NicSalt } from '../../../models/nicSalt.model';
 import { NicSaltService } from '../../../services/nicSalt.service';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-nicSalt-list',
@@ -20,6 +21,10 @@ export class NicSaltListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'valor', 'descricao', 'sabor', 'marca', 'acao'];
   nicSalts: NicSalt[] = [];
 
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
+
   constructor(private nicSaltService: NicSaltService) {
 
   }
@@ -28,6 +33,18 @@ export class NicSaltListComponent implements OnInit {
     this.nicSaltService.findAll().subscribe(data => {
       this.nicSalts = data;
     })
+
+    this.nicSaltService.count().subscribe(data => {
+      this.totalRecords = data;
+      console.log(this.totalRecords);
+    });
   }
 
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
+  }
+
+  
 }

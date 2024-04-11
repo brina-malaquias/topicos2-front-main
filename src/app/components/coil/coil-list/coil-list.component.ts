@@ -17,8 +17,12 @@ import { Coil } from '../../../models/coil.models';
   styleUrl: './coil-list.component.css'
 })
 export class CoilListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'valor', 'descricao', 'sabor', 'marca', 'acao'];
+  displayedColumns: string[] = ['id', 'nome', 'valor', 'descricao', 'resistencia', 'marca', 'acao'];
   coils: Coil[] = [];
+
+  totalRecords = 0;
+  pageSize = 2;
+  page = 0;
 
   constructor(private coilService: CoilService) {
 
@@ -28,6 +32,12 @@ export class CoilListComponent implements OnInit {
     this.coilService.findAll().subscribe(data => {
       this.coils = data;
     })
+
+    this.coilService.count().subscribe(data => {
+      this.totalRecords = data;
+      console.log(this.totalRecords);
+    });
+
   }
 
 }

@@ -49,5 +49,4 @@ export class CorListComponent implements OnInit {
     this.ngOnInit();
   }
 
-
 }
