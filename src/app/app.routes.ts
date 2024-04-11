@@ -54,9 +54,9 @@ export const routes: Routes = [
     { path: 'marcas/new', component: MarcaFormComponent, title: 'Nova Marca'},
     { path: 'marcas/edit/:id', component: MarcaFormComponent, resolve: {marca: marcaResolver}},
 
-    { path: 'podrecarregaveis', component: PodRecarregavelListComponent, title: 'Lista de Pod Recarregaveis'},
-    { path: 'podrecarregaveis/new', component: PodRecarregavelFormComponent, title: 'Nova Pod Recarregaveis'},
-    { path: 'podrecarregaveis/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
+    { path: 'podsRecarregaveis', component: PodRecarregavelListComponent, title: 'Lista de Pod Recarregaveis'},
+    { path: 'podsRecarregaveis/new', component: PodRecarregavelFormComponent, title: 'Nova Pod Recarregaveis'},
+    { path: 'podsRecarregaveis/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
 
     { path: 'coils', component: CoilListComponent, title: 'Lista de Coils'},
     { path: 'coils/new', component: CoilFormComponent, title: 'Nova Coil'},
