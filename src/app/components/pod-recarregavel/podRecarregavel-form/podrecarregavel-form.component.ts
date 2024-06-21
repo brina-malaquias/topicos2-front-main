@@ -31,6 +31,9 @@ export class PodRecarregavelFormComponent implements OnInit {
   cores: Cor[] = [];
   marcas: Marca[] = [];
 
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
               private podrecarregavelService: PodRecarregavelService,
               private corService: CorService,
@@ -88,18 +91,20 @@ export class PodRecarregavelFormComponent implements OnInit {
       if (podrecarregavel.id == null) {
         this.podrecarregavelService.insert(podrecarregavel).subscribe({
           next: (podrecarregavelCadastrado) => {
-            this.router.navigateByUrl('/admin/podsRecarregaveis');
+            this.uploadImage(podrecarregavelCadastrado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
       } else {
         this.podrecarregavelService.update(podrecarregavel).subscribe({
           next: (podrecarregavelAlterado) => {
-            this.router.navigateByUrl('/admin/podsRecarregaveis');
+            this.uploadImage(podrecarregavelAlterado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Editar' + JSON.stringify(err));
           }
         });
@@ -123,17 +128,30 @@ export class PodRecarregavelFormComponent implements OnInit {
     }
   }
 
-  openImagePicker() {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
+  private uploadImage(produtoId: number) {
+    if (this.selectedFile) {
+      this.podrecarregavelService.uploadImagem(produtoId, this.selectedFile.name, this.selectedFile)
+        .subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/podsRecarregaveis');
+          },
+          error: err => {
+            alert('Erro ao cadastrar imagem');
+            console.log('Erro ao cadastrar imagem.' + JSON.stringify(err));
+          }
+        })
+    } else {
+      this.router.navigateByUrl('/admin/podsRecarregaveis');
     }
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      console.log('File selected:', file);
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 }

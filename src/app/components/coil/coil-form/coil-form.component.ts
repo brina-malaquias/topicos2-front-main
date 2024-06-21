@@ -32,6 +32,9 @@ export class CoilFormComponent implements OnInit {
   resistencias: Resistencia[] = [];
   marcas: Marca[] = [];
 
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
     private coilService: CoilService,
     private resistenciaService: ResistenciaService,
@@ -91,18 +94,20 @@ export class CoilFormComponent implements OnInit {
       if (coil.id ==null) {
         this.coilService.insert(coil).subscribe({
           next: (coilCadastrado) => {
-            this.router.navigateByUrl('/admin/coils');
+            this.uploadImage(coilCadastrado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
       } else {
         this.coilService.update(coil).subscribe({
           next: (coilAlterado) => {
-            this.router.navigateByUrl('/admin/coils');
+            this.uploadImage(coilAlterado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Editar' + JSON.stringify(err));
           }
         });
@@ -126,17 +131,30 @@ export class CoilFormComponent implements OnInit {
     }
   }
 
-  openImagePicker() {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
+  private uploadImage(produtoId: number) {
+    if (this.selectedFile) {
+      this.coilService.uploadImagem(produtoId, this.selectedFile.name, this.selectedFile)
+        .subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/coils');
+          },
+          error: err => {
+            alert('Erro ao cadastrar imagem');
+            console.log('Erro ao cadastrar imagem.' + JSON.stringify(err));
+          }
+        })
+    } else {
+      this.router.navigateByUrl('/admin/coils');
     }
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      console.log('File selected:', file);
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 

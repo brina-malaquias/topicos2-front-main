@@ -34,6 +34,9 @@ export class PodDescartavelFormComponent implements OnInit {
   puffs: Puff[] = [];
   marcas: Marca[] = [];
 
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
     private podDescartavelService: PodDescartavelService,
     private saborService: SaborService,
@@ -96,21 +99,23 @@ export class PodDescartavelFormComponent implements OnInit {
       this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const podDescartavel = this.formGroup.value;
 
-      if (podDescartavel.id ==null) {
+      if (podDescartavel.id == null) {
         this.podDescartavelService.insert(podDescartavel).subscribe({
           next: (podDescartavelCadastrado) => {
-            this.router.navigateByUrl('/admin/podsDescartaveis');
+            this.uploadImage(podDescartavelCadastrado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
         } else {
         this.podDescartavelService.update(podDescartavel).subscribe({
           next: (podDescartavelAlterado) => {
-            this.router.navigateByUrl('/admin/podsDescartaveis');
+            this.uploadImage(podDescartavelAlterado.id);
         },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Editar' + JSON.stringify(err));
           }
         });
@@ -134,17 +139,30 @@ export class PodDescartavelFormComponent implements OnInit {
     }
   }
 
-  openImagePicker() {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
+  private uploadImage(produtoId: number) {
+    if (this.selectedFile) {
+      this.podDescartavelService.uploadImagem(produtoId, this.selectedFile.name, this.selectedFile)
+        .subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/podsDescartaveis');
+          },
+          error: err => {
+            alert('Erro ao cadastrar imagem');
+            console.log('Erro ao cadastrar imagem.' + JSON.stringify(err));
+          }
+        })
+    } else {
+      this.router.navigateByUrl('/admin/podsDescartaveis');
     }
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      console.log('File selected:', file);
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 

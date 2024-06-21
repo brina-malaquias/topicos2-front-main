@@ -47,10 +47,10 @@ export class HomeComponent {
               private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.carregarPodsDescartavel();
-    this.carregarPodsRecarregavel();
-    this.carregarNicSalts();
     this.carregarCoils();
+    this.carregarPodsDescartavel();
+    this.carregarNicSalts();
+    this.carregarPodsRecarregavel();
   }
 
   carregarPodsDescartavel() {
@@ -108,7 +108,7 @@ export class HomeComponent {
         id: nicSalt.id,
         titulo: nicSalt.nome,
         preco: nicSalt.valor,
-        urlImagem: this.podRecarregavelService.getUrlImagem(nicSalt.nomeImagem),
+        urlImagem: this.nicsaltService.getUrlImagem(nicSalt.nomeImagem),
         tipo: "NicSalt"
       });
     });
@@ -118,7 +118,7 @@ export class HomeComponent {
         id: coil.id,
         titulo: coil.nome,
         preco: coil.valor,
-        urlImagem: this.podRecarregavelService.getUrlImagem(coil.nomeImagem),
+        urlImagem: this.coilService.getUrlImagem(coil.nomeImagem),
         tipo: "Coil"
       });
     });

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #525252, rgba(0, 0, 0, 0.37));
+  background: linear-gradient(to right, #706f6f, #181717);
 }
 
 .login-box {
@@ -37,8 +37,6 @@
 .login-button {
   width: 100%;
   margin-top: 20px;
-  background: #919191;
-  color: #fff;
   transition: background 0.3s;
 }
 

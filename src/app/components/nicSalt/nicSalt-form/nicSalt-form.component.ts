@@ -33,6 +33,9 @@ export class NicSaltFormComponent implements OnInit {
   sabores: Sabor[] = [];
   marcas: Marca[] = [];
 
+  selectedFile: File | null = null;
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
     private nicSaltService: NicSaltService,
     private saborService: SaborService,
@@ -89,18 +92,20 @@ export class NicSaltFormComponent implements OnInit {
       if (nicSalt.id ==null) {
         this.nicSaltService.insert(nicSalt).subscribe({
           next: (nicSaltCadastrado) => {
-            this.router.navigateByUrl('/admin/nicsalts');
+            this.uploadImage(nicSaltCadastrado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
       } else {
         this.nicSaltService.update(nicSalt).subscribe({
           next: (nicSaltAlterado) => {
-            this.router.navigateByUrl('/admin/nicsalts');
+            this.uploadImage(nicSaltAlterado.id);
           },
           error: (err) => {
+            alert("Erro");
             console.log('Erro ao Editar' + JSON.stringify(err));
           }
         });
@@ -124,17 +129,30 @@ export class NicSaltFormComponent implements OnInit {
     }
   }
 
-  openImagePicker() {
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-      fileInput.click();
+  private uploadImage(produtoId: number) {
+    if (this.selectedFile) {
+      this.nicSaltService.uploadImagem(produtoId, this.selectedFile.name, this.selectedFile)
+        .subscribe({
+          next: () => {
+            this.router.navigateByUrl('/admin/nicsalts');
+          },
+          error: err => {
+            alert('Erro ao cadastrar imagem');
+            console.log('Erro ao cadastrar imagem.' + JSON.stringify(err));
+          }
+        })
+    } else {
+      this.router.navigateByUrl('/admin/nicsalts');
     }
   }
 
-  onFileSelected(event: Event) {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      console.log('File selected:', file);
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 

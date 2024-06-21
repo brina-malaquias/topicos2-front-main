@@ -7,10 +7,26 @@
           <div class="image-section">
             <!-- Image Upload Section -->
             <div class="image-upload">
-              <mat-card class="image-card" (click)="openImagePicker()">
-                <mat-icon class="plus-icon">add</mat-icon>
-              </mat-card>
-              <input type="file" #fileInput style="display:none;" (change)="onFileSelected($event)">
+              <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
+
+              <div *ngIf="imagePreview">
+                <mat-card>
+                  <div>
+                    <mat-card>
+                      <img class="image-card" mat-card-image [src]="imagePreview">
+                    </mat-card>
+                  </div>
+                </mat-card>
+              </div>
+
+              <div *ngIf="!imagePreview">
+                <mat-card class="image-card">
+                </mat-card>
+              </div>
+
+              <button mat-icon-button matSuffix (click)="fileInput.click()">
+                <mat-icon>folder_open</mat-icon>
+              </button>
             </div>
           </div>
           <div class="form-section">
