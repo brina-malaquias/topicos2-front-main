@@ -7,6 +7,7 @@ export class Coil {
     nome!: string;
     valor!: number;
     descricao!: string;
-    resistencia!: Resistencia;
-    marca!: Marca;
+    listaResistencia!: Resistencia[];
+    listaMarca!: Marca[];
+    nomeImagem!: string;
 }

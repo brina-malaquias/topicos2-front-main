@@ -16,13 +16,14 @@ import { Marca } from '../../../models/marca.model';
 import { PuffService } from '../../../services/puff.service';
 import { Sabor } from '../../../models/sabor.model';
 import { Puff } from '../../../models/puff.model';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-podDescartavel-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
-    RouterModule, MatSelectModule],
+    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
+    RouterModule, MatSelectModule, MatIcon],
   templateUrl: './podDescartavel-form.component.html',
   styleUrl: './podDescartavel-form.component.css'
 })
@@ -46,9 +47,9 @@ export class PodDescartavelFormComponent implements OnInit {
       nome: ['', Validators.required],
       valor: ['', Validators.required],
       descricao: ['', Validators.required],
-      sabor: [null],
-      puff: [null],
-      marca: [null]
+      listaSabor: [null],
+      listaPuff: [null],
+      listaMarca: [null]
     });
   }
   ngOnInit(): void {
@@ -70,42 +71,45 @@ export class PodDescartavelFormComponent implements OnInit {
 
     const podDescartavel: PodDescartavel = this.activatedRoute.snapshot.data['podDescartavel'];
 
-    // selecionando o estado
     const sabor = this.sabores
-      .find(sabor => sabor.id === (podDescartavel?.sabor?.id || null));
+      .find(sabor => sabor.id === (podDescartavel?.listaSabor[0]?.id || null));
     const puff = this.puffs
-      .find(puff => puff.id === (podDescartavel?.puff?.id || null));
+      .find(puff => puff.id === (podDescartavel?.listaPuff[0]?.id || null));
     const marca = this.marcas
-      .find(marca => marca.id === (podDescartavel?.marca?.id || null));
+      .find(marca => marca.id === (podDescartavel?.listaMarca[0]?.id || null));
 
     this.formGroup = this.formBuilder.group({
       id: [(podDescartavel && podDescartavel.id) ? podDescartavel.id : null],
       nome: [(podDescartavel && podDescartavel.nome) ? podDescartavel.nome : '', Validators.required],
       valor: [(podDescartavel && podDescartavel.valor) ? podDescartavel.valor : '', Validators.required],
       descricao: [(podDescartavel && podDescartavel.descricao) ? podDescartavel.descricao : '', Validators.required],
-      sabor: [sabor],
-      puff: [puff],
-      marca: [marca]
+      listaSabor: [podDescartavel.listaSabor],
+      listaPuffs: [podDescartavel.listaPuff],
+      listaMarca: [podDescartavel.listaMarca]
     });
   }
 
   salvar() {
     if (this.formGroup.valid) {
+      this.formGroup.get("listaSabor")?.setValue([this.formGroup.get("listaSabor")?.value]);
+      this.formGroup.get("listaPuffs")?.setValue([this.formGroup.get("listaPuffs")?.value]);
+      this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const podDescartavel = this.formGroup.value;
+
       if (podDescartavel.id ==null) {
         this.podDescartavelService.insert(podDescartavel).subscribe({
           next: (podDescartavelCadastrado) => {
-            this.router.navigateByUrl('/podsDescartaveis');
+            this.router.navigateByUrl('/admin/podsDescartaveis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
           }
         });
-      } else {
+        } else {
         this.podDescartavelService.update(podDescartavel).subscribe({
           next: (podDescartavelAlterado) => {
-            this.router.navigateByUrl('/podsDescartaveis');
-          },
+            this.router.navigateByUrl('/admin/podsDescartaveis');
+        },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
           }
@@ -120,13 +124,27 @@ export class PodDescartavelFormComponent implements OnInit {
       if (podDescartavel.id != null) {
         this.podDescartavelService.delete(podDescartavel).subscribe({
           next: () => {
-            this.router.navigateByUrl('/podsDescartaveis');
+            this.router.navigateByUrl('/admin/podsDescartaveis');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
           }
         });
       }
+    }
+  }
+
+  openImagePicker() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('File selected:', file);
     }
   }
 

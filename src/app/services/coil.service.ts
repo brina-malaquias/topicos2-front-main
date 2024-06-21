@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Coil } from '../models/coil.models';
+import {PodDescartavel} from "../models/podDescartavel.model";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class CoilService {
 
   constructor(private httpClient: HttpClient) {  }
 
-  findAll(): Observable<Coil[]> {
+  findAll(pagina: number, tamanhoPagina: number): Observable<Coil[]> {
+    const params = {
+      page: pagina.toString(),
+      pageSize: tamanhoPagina.toString()
+    }
     return this.httpClient.get<Coil[]>(this.baseUrl);
   }
 
@@ -24,19 +29,19 @@ export class CoilService {
       nome: coil.nome,
       valor: coil.valor,
       descricao: coil.descricao,
-      idResistencia: coil.resistencia.id,
-      idMarca: coil.marca.id
+      listaResistencia: [coil.listaResistencia[0].id],
+      listaMarca: [coil.listaMarca[0].id]
     }
     return this.httpClient.post<Coil>(this.baseUrl, data);
   }
-  
+
   update(coil: Coil): Observable<Coil> {
     const data = {
       nome: coil.nome,
       valor: coil.valor,
       descricao: coil.descricao,
-      idResistencia: coil.resistencia.id,
-      idMarca: coil.marca.id
+      idResistencia: [coil.listaResistencia[0].id],
+      idMarca: [coil.listaMarca[0].id]
     }
     return this.httpClient.put<Coil>(`${this.baseUrl}/${coil.id}`, data);
   }
@@ -47,6 +52,19 @@ export class CoilService {
 
   count(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseUrl}/count`);
+  }
+
+  uploadImagem(id: number, nomeImagem: string, imagem: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+
+    return this.httpClient.patch<PodDescartavel>(`${this.baseUrl}/image/upload`, formData);
+  }
+
+  getUrlImagem(nomeImagem: string): string {
+    return `${this.baseUrl}/image/download/${nomeImagem}`;
   }
 
 }

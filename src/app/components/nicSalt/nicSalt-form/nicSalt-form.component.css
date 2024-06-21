@@ -1,31 +1,100 @@
 .toolbar-title {
-    flex: 1;
-    text-align: center;
-  }
+  flex: 1;
+  text-align: center;
+}
 
 .full-width-input {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-mat-card {
-    max-width: 800px;
-    margin: 2rem auto;
-}
-
-mat-card-actions {
-    display: flex;
-    justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .form-container {
-    padding: 2rem; 
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.image-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image-card {
+  cursor: pointer;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plus-icon {
+  font-size: 64px;
+}
+
+.form-fields {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-inputs {
+  width: calc(50% - 10px);
+}
+
+.right-inputs {
+  width: calc(50% - 10px);
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: end;
+  flex-wrap: wrap;
+}
+
+mat-card-actions button {
+  margin-left: 8px;
 }
 
 button[mat-raised-button] {
-    width: 120px;
+  width: 120px;
+  margin-top: 1rem;
 }
 
-button[mat-raised-button]:not(:last-child) {
-    margin-right: 1rem;
+button.full-width-button {
+  width: 6%;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+}
+
+.container-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-section {
+  width: 40%;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item mat-form-field {
+  margin-top: 20px;
+  width: 88%
 }

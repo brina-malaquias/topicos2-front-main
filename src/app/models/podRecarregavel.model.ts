@@ -7,6 +7,7 @@ export class PodRecarregavel {
     nome!: string;
     valor!: number;
     descricao!: string;
-    cor!: Cor;
-    marca!: Marca;
+    listaCor!: Cor[];
+    listaMarca!: Marca[];
+    nomeImagem!: string;
 }

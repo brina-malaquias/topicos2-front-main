@@ -1,90 +1,118 @@
-<mat-toolbar color="black" class="toolbar-title">Cadastro de Pod Descartavel</mat-toolbar>
+
 <div class="form-container">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="formGroup">
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="formGroup">
+
+        <div class="container-flex">
+          <div class="image-section">
+            <div class="image-upload">
+              <mat-card class="image-card" (click)="openImagePicker()">
+                <mat-icon class="plus-icon">add</mat-icon>
+              </mat-card>
+              <input type="file" #fileInput style="display:none;" (change)="onFileSelected($event)">
+            </div>
+          </div>
+          <div class="form-section">
+              <div class="left-inputs">
                 <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
-                    <mat-error *ngIf="formGroup.get('nome') 
-                                   && formGroup.get('nome')?.invalid
-                                   && formGroup.get('nome')?.touched">
-                        O nome é obrigatorio.
-                    </mat-error>
+                  <mat-label>Nome</mat-label>
+                  <input matInput type="text" formControlName="nome">
+                  <mat-error *ngIf="formGroup.get('nome')?.invalid && formGroup.get('nome')?.touched">
+                    O nome é obrigatório.
+                  </mat-error>
                 </mat-form-field>
 
                 <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Valor</mat-label>
-                    <input matInput type="text" formControlName="valor">
-                    <mat-error *ngIf="formGroup.get('valor') 
-                                   && formGroup.get('valor')?.invalid
-                                   && formGroup.get('valor')?.touched">
-                        O valor é obrigatorio.
-                    </mat-error>
+                  <mat-label>Valor</mat-label>
+                  <input matInput type="text" formControlName="valor">
+                  <mat-error *ngIf="formGroup.get('valor')?.invalid && formGroup.get('valor')?.touched">
+                    O valor é obrigatório.
+                  </mat-error>
                 </mat-form-field>
-                
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Descricao</mat-label>
-                    <input matInput type="text" formControlName="descricao">
-                    <mat-error *ngIf="formGroup.get('descricao') 
-                                   && formGroup.get('descricao')?.invalid
-                                   && formGroup.get('descricao')?.touched">
-                        A descricao é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
+              </div>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Sabor</mat-label>
-                    <mat-select formControlName="sabor">
-                        @for (sabor of sabores; track sabor.id) {
-                            <mat-option [value]="sabor">
-                                {{sabor.sabor}}
-                            </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Descricao</mat-label>
+                <input matInput type="text" formControlName="descricao">
+                <mat-error *ngIf="formGroup.get('descricao')
+                           && formGroup.get('descricao')?.invalid
+                           && formGroup.get('descricao')?.touched">
+                  A descricao é obrigatorio.
+                </mat-error>
+              </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Puff</mat-label>
-                    <mat-select formControlName="puff">
-                        @for (puff of puffs; track puff.id) {
-                            <mat-option [value]="puff">
-                                {{puff.quantidade}}
-                            </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+            <div class="item">
+              <mat-form-field appearance="fill">
+                <mat-label>Sabor</mat-label>
+                <mat-select formControlName="listaSabor">
+                  @for (sabor of sabores; track sabor.id) {
+                  <mat-option [value]="sabor">
+                  {{sabor.sabor}}
+                  </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Marca</mat-label>
-                    <mat-select formControlName="marca">
-                        @for (marca of marcas; track marca.id) {
-                            <mat-option [value]="marca">
-                                {{marca.nome}}, {{marca.descricao}}
-                            </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+              <button mat-raised-button routerLink="/sabores/new" class="full-width-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
 
-            </form>
+            <div class="item">
+              <mat-form-field appearance="fill">
+                <mat-label>Puff</mat-label>
+                  <mat-select formControlName="listaPuff">
+                    @for (puff of puffs; track puff.id) {
+                    <mat-option [value]="puff">
+                    {{puff.quantidade}}
+                    </mat-option>
+                    }
+                  </mat-select>
+              </mat-form-field>
+
+              <button mat-raised-button routerLink="/puffs/new" class="full-width-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <div class="item">
+              <mat-form-field appearance="fill">
+                <mat-label>Marca</mat-label>
+                  <mat-select formControlName="listaMarca">
+                    @for (marca of marcas; track marca.id) {
+                    <mat-option [value]="marca">
+                    {{marca.nome}}
+                    </mat-option>
+                    }
+                  </mat-select>
+              </mat-form-field>
+
+              <button mat-raised-button routerLink="/marcas/new" class="full-width-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button 
-                    color="primary" 
+            <button mat-raised-button
                     (click)="salvar()"
-                    [disabled]="formGroup.invalid"> 
-                Salvar 
+                    [disabled]="formGroup.invalid">
+                Salvar
             </button>
-            <button mat-raised-button 
+            <button mat-raised-button
                     *ngIf="formGroup?.get('id')?.value"
-                    color="warn" 
+                    color="warn"
                     (click)="excluir()"
-                    [disabled]="formGroup.invalid"> 
-                Excluir 
+                    [disabled]="formGroup.invalid">
+                Excluir
             </button>
-            <button mat-raised-button  
-                    routerLink="/podsDecartaveis"> 
-                Cancelar 
+            <button mat-raised-button
+                    routerLink="/admin/podsDescartaveis">
+                Cancelar
             </button>
 
         </mat-card-actions>

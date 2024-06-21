@@ -1,7 +1,7 @@
 <mat-toolbar color="black">
   <div class="flex-container">
     <span class="toolbar-title">Controle de Pod Descartaveis</span>
-    <button mat-fab color="accent" routerLink="/podsDescartaveis/new">
+    <button mat-fab color="accent" routerLink="/admin/podsDescartaveis/new">
       <mat-icon>add</mat-icon>
     </button>
   </div>
@@ -14,13 +14,13 @@
       <th mat-header-cell *matHeaderCellDef> No. </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-  
+
     <!-- Nome Column -->
     <ng-container matColumnDef="nome">
       <th mat-header-cell *matHeaderCellDef> Nome </th>
       <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
     </ng-container>
-  
+
     <!-- Valor Column -->
     <ng-container matColumnDef="valor">
       <th mat-header-cell *matHeaderCellDef> Valor </th>
@@ -36,39 +36,39 @@
     <!-- Sabor Column -->
     <ng-container matColumnDef="sabor">
       <th mat-header-cell *matHeaderCellDef> Sabor </th>
-      <td mat-cell *matCellDef="let element"> {{element.sabor.sabor}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.listaSabor[0].saborr}} </td>
     </ng-container>
 
     <!-- Puff Column -->
     <ng-container matColumnDef="puff">
       <th mat-header-cell *matHeaderCellDef> Puff </th>
-      <td mat-cell *matCellDef="let element"> {{element.puff.quantidade}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.listaPuff[0].quantidade}} </td>
     </ng-container>
 
     <!-- Marca Column -->
     <ng-container matColumnDef="marca">
       <th mat-header-cell *matHeaderCellDef> Marca </th>
-      <td mat-cell *matCellDef="let element"> {{element.marca.nome}} - {{element.marca.descricao}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.listaMarca[0].nome}} </td>
     </ng-container>
 
     <!-- Acao Column -->
     <ng-container matColumnDef="acao">
       <th mat-header-cell *matHeaderCellDef> Ação </th>
-      <td mat-cell *matCellDef="let element"> 
-        <button mat-icon-button 
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button
                 color="primary"
-                routerLink="/podsDescartaveis/edit/{{element.id}}">
+                routerLink="/admin/podsDescartaveis/edit/{{element.id}}">
                 <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button 
+        <button mat-icon-button
                 color="warn">
                 <mat-icon>delete</mat-icon>
-        </button>        
+        </button>
       </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
-  
+
+

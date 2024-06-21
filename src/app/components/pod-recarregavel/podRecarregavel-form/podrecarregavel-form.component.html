@@ -1,82 +1,97 @@
-<mat-toolbar color="black" class="toolbar-title">Cadastro de Pod Recarregavel</mat-toolbar>
 <div class="form-container">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="formGroup">
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
-                    <mat-error *ngIf="formGroup.get('nome') 
-                                   && formGroup.get('nome')?.invalid
-                                   && formGroup.get('nome')?.touched">
-                        O nome é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
+  <mat-card class="form-card">
+    <mat-card-content>
+      <form [formGroup]="formGroup">
 
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Valor</mat-label>
-                    <input matInput type="text" formControlName="valor">
-                    <mat-error *ngIf="formGroup.get('valor') 
-                                   && formGroup.get('valor')?.invalid
-                                   && formGroup.get('valor')?.touched">
-                        O valor é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Descricao</mat-label>
-                    <input matInput type="text" formControlName="descricao">
-                    <mat-error *ngIf="formGroup.get('descricao') 
-                                   && formGroup.get('descricao')?.invalid
-                                   && formGroup.get('descricao')?.touched">
-                        A descricao é obrigatorio.
-                    </mat-error>
-                </mat-form-field>
+        <div class="container-flex">
+          <div class="image-section">
+            <!-- Image Upload Section -->
+            <div class="image-upload">
+              <mat-card class="image-card" (click)="openImagePicker()">
+                <mat-icon class="plus-icon">add</mat-icon>
+              </mat-card>
+              <input type="file" #fileInput style="display:none;" (change)="onFileSelected($event)">
+            </div>
+          </div>
+          <div class="form-section">
+              <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="nome">
+                <mat-error *ngIf=" formGroup.get('nome')
+                              && formGroup.get('nome')?.invalid
+                              && formGroup.get('nome')?.touched">
+                  O nome é obrigatório.
+                </mat-error>
+              </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Cor</mat-label>
-                    <mat-select formControlName="cor">
-                        @for (cor of cores; track cor.id) {
-                            <mat-option [value]="cor">
-                                {{cor.cor}}
-                            </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Valor</mat-label>
+                <input matInput type="text" formControlName="valor">
+                <mat-error *ngIf="formGroup.get('valor')
+                              && formGroup.get('valor')?.invalid
+                              && formGroup.get('valor')?.touched">
+                  O valor é obrigatório.
+                </mat-error>
+              </mat-form-field>
 
-                <mat-form-field appearance="fill">
-                    <mat-label>Marca</mat-label>
-                    <mat-select formControlName="marca">
-                        @for (marca of marcas; track marca.id) {
-                            <mat-option [value]="marca">
-                                {{marca.nome}}, {{marca.descricao}}
-                            </mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+              <mat-form-field appearance="fill" class="full-width-input">
+                <mat-label>Descricao</mat-label>
+                <input matInput type="text" formControlName="descricao">
+                <mat-error *ngIf="formGroup.get('descricao')
+                           && formGroup.get('descricao')?.invalid
+                           && formGroup.get('descricao')?.touched">
+                  A descricao é obrigatorio.
+                </mat-error>
+              </mat-form-field>
 
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button 
-                    color="primary" 
-                    (click)="salvar()"
-                    [disabled]="formGroup.invalid"> 
-                Salvar 
-            </button>
-            <button mat-raised-button 
-                    *ngIf="formGroup?.get('id')?.value"
-                    color="warn" 
-                    (click)="excluir()"
-                    [disabled]="formGroup.invalid"> 
-                Excluir 
-            </button>
-            <button mat-raised-button  
-                    routerLink="/podrecarregaveis"> 
-                Cancelar 
-            </button>
+            <div class="item">
+              <mat-form-field appearance="fill">
+                <mat-label>Cor</mat-label>
+                <mat-select formControlName="listaCor">
+                  @for (cor of cores; track cor.id) {
+                  <mat-option [value]="cor">
+                  {{cor.cor}}
+                  </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
 
-        </mat-card-actions>
-    </mat-card>
+              <button mat-raised-button color="primary" routerLink="/cores/new" class="full-width-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+
+            <div class="item">
+              <mat-form-field appearance="fill">
+                <mat-label>Marca</mat-label>
+                <mat-select formControlName="listaMarca">
+                  @for (marca of marcas; track marca.id) {
+                  <mat-option [value]="marca">
+                  {{marca.nome}}
+                  </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <button mat-raised-button routerLink="/marcas/new" class="full-width-button">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+        Salvar
+      </button>
+      <button mat-raised-button *ngIf="formGroup.get('id')?.value" color="warn" (click)="excluir()" [disabled]="formGroup.invalid">
+        Excluir
+      </button>
+      <button mat-raised-button routerLink="/admin/podsRecarregaveis">
+        Cancelar
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </div>
-

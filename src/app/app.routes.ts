@@ -38,57 +38,84 @@ import { ResistenciaFormComponent } from './components/resistencia/resistencia-f
 import { usuarioResolver } from './components/usuario/resolver/usuario-resolver';
 import { UsuarioListComponent } from './components/usuario/usuario-list/usuario-list.component';
 import { UsuarioFormComponent } from './components/usuario/usuario-form/usuario-form.component';
+import {HomeComponent} from "./components/home/home.component";
+import {UserTemplateComponent} from "./template/user-template/user-template.component";
+import {LoginComponent} from "./components/auth/components/login/login.component";
+import {AdminTemplateComponent} from "./template/admin-template/admin-template.component";
+// import {CarrinhoComponent} from "./components/carrinho/carrinho.component";
 
 export const routes: Routes = [
-    { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
-    { path: 'estados/new', component: EstadoFormComponent, title: 'Novo Estado'},
-    { path: 'estados/edit/:id', component: EstadoFormComponent, resolve: {estado: estadoResolver}},
 
-    { path: 'municipios', component: MunicipioListComponent, title: 'Lista de Municipios'},
-    { path: 'municipios/new', component: MunicipioFormComponent, title: 'Novo Municipio'},
-    { path: 'municipios/edit/:id', component: MunicipioFormComponent, resolve: {municipio: municipioResolver}},
+    {path: 'login', component: LoginComponent, title: 'Login'},
 
-    { path: 'cores', component: CorListComponent, title: 'Lista de Cores'},
-    { path: 'cores/new', component: CorFormComponent, title: 'Nova Cor'},
-    { path: 'cores/edit/:id', component: CorFormComponent, resolve: {cor: corResolver}},
+    {path:'',
+    component: UserTemplateComponent,
+    title: 'e-commerce',
+    children:[
+      {path :'', component: HomeComponent, title: 'MalakaPods'}
+    ]
+    },
 
-    { path: 'marcas', component: MarcaListComponent, title: 'Lista de Marcas'},
-    { path: 'marcas/new', component: MarcaFormComponent, title: 'Nova Marca'},
-    { path: 'marcas/edit/:id', component: MarcaFormComponent, resolve: {marca: marcaResolver}},
+    {path :'admin',
+      component: AdminTemplateComponent,
+      title: 'e-commerce',
+    children: [
+      { path: 'estados', component: EstadoListComponent, title: 'Lista de Estados'},
+      { path: 'estados/new', component: EstadoFormComponent, title: 'Novo Estado'},
+      { path: 'estados/edit/:id', component: EstadoFormComponent, resolve: {estado: estadoResolver}},
 
-    { path: 'podsRecarregaveis', component: PodRecarregavelListComponent, title: 'Lista de Pod Recarregaveis'},
-    { path: 'podsRecarregaveis/new', component: PodRecarregavelFormComponent, title: 'Nova Pod Recarregaveis'},
-    { path: 'podsRecarregaveis/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
+      { path: 'municipios', component: MunicipioListComponent, title: 'Lista de Municipios'},
+      { path: 'municipios/new', component: MunicipioFormComponent, title: 'Novo Municipio'},
+      { path: 'municipios/edit/:id', component: MunicipioFormComponent, resolve: {municipio: municipioResolver}},
 
-    { path: 'coils', component: CoilListComponent, title: 'Lista de Coils'},
-    { path: 'coils/new', component: CoilFormComponent, title: 'Nova Coil'},
-    { path: 'coils/edit/:id', component: CoilFormComponent, resolve: {coil: coilResolver}},
+      { path: 'cores', component: CorListComponent, title: 'Lista de Cores'},
+      { path: 'cores/new', component: CorFormComponent, title: 'Nova Cor'},
+      { path: 'cores/edit/:id', component: CorFormComponent, resolve: {cor: corResolver}},
 
-    { path: 'nicsalts', component: NicSaltListComponent, title: 'Lista de NicSalts'},
-    { path: 'nicsalts/new', component: NicSaltFormComponent, title: 'Nova Nicsalt'},
-    { path: 'nicsalts/edit/:id', component: NicSaltFormComponent, resolve: {nicsalt: nicSalt}},
+      { path: 'marcas', component: MarcaListComponent, title: 'Lista de Marcas'},
+      { path: 'marcas/new', component: MarcaFormComponent, title: 'Nova Marca'},
+      { path: 'marcas/edit/:id', component: MarcaFormComponent, resolve: {marca: marcaResolver}},
 
-    { path: 'podsDescartaveis', component: PodDescartavelListComponent, title: 'Lista de Pod Descartaveis'},
-    { path: 'podsDescartaveis/new', component: PodDescartavelFormComponent, title: 'Novo Pod Descartavel'},
-    { path: 'podsDescartaveis/edit/:id', component: PodDescartavelFormComponent, resolve: {podDescartavel: podDescartavelResolver}},
+      { path: 'podsRecarregaveis', component: PodRecarregavelListComponent, title: 'Lista de Pod Recarregaveis'},
+      { path: 'podsRecarregaveis/new', component: PodRecarregavelFormComponent, title: 'Nova Pod Recarregaveis'},
+      { path: 'podsRecarregaveis/edit/:id', component: PodRecarregavelFormComponent, resolve: {podrecarregavel: podRecarregavelResolver}},
 
-    { path: 'puffs', component: PuffListComponent, title: 'Lista de Puffs'},
-    { path: 'puffs/new', component: PuffFormComponent, title: 'Novo Puff'},
-    { path: 'puffs/edit/:id', component: PuffFormComponent, resolve: {puff: puffResolver}},
+      { path: 'coils', component: CoilListComponent, title: 'Lista de Coils'},
+      { path: 'coils/new', component: CoilFormComponent, title: 'Nova Coil'},
+      { path: 'coils/edit/:id', component: CoilFormComponent, resolve: {coil: coilResolver}},
 
-    { path: 'resistencias', component: ResistenciaListComponent, title: 'Lista de Resistencias'},
-    { path: 'resistencias/new', component: ResistenciaFormComponent, title: 'Nova Resistencia'},
-    { path: 'resistencias/edit/:id', component: ResistenciaFormComponent, resolve: {resistencia: resistenciaResolver}},
+      { path: 'nicsalts', component: NicSaltListComponent, title: 'Lista de NicSalts'},
+      { path: 'nicsalts/new', component: NicSaltFormComponent, title: 'Nova Nicsalt'},
+      { path: 'nicsalts/edit/:id', component: NicSaltFormComponent, resolve: {nicsalt: nicSalt}},
 
-    { path: 'sabores', component: SaborListComponent, title: 'Lista de Sabores'},
-    { path: 'sabores/new', component: SaborFormComponent, title: 'Novo Sabor'},
-    { path: 'sabores/edit/:id', component: SaborFormComponent, resolve: {sabor: saborResolver}},
+      { path: 'podsDescartaveis', component: PodDescartavelListComponent, title: 'Lista de Pod Descartaveis'},
+      { path: 'podsDescartaveis/new', component: PodDescartavelFormComponent, title: 'Novo Pod Descartavel'},
+      { path: 'podsDescartaveis/edit/:id', component: PodDescartavelFormComponent, resolve: {podDescartavel: podDescartavelResolver}},
 
-    { path: 'telefones', component: telefoneListComponent, title: 'Lista de Telefones'},
-    { path: 'telefones/new', component: TelefoneFormComponent, title: 'Novo Telefone'},
-    { path: 'telefones/edit/:id', component: TelefoneFormComponent, resolve: {telefone: telefoneResolver}},
+      { path: 'puffs', component: PuffListComponent, title: 'Lista de Puffs'},
+      { path: 'puffs/new', component: PuffFormComponent, title: 'Novo Puff'},
+      { path: 'puffs/edit/:id', component: PuffFormComponent, resolve: {puff: puffResolver}},
 
-    { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
-    { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
-    { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuario: usuarioResolver}},
+      { path: 'resistencias', component: ResistenciaListComponent, title: 'Lista de Resistencias'},
+      { path: 'resistencias/new', component: ResistenciaFormComponent, title: 'Nova Resistencia'},
+      { path: 'resistencias/edit/:id', component: ResistenciaFormComponent, resolve: {resistencia: resistenciaResolver}},
+
+      { path: 'sabores', component: SaborListComponent, title: 'Lista de Sabores'},
+      { path: 'sabores/new', component: SaborFormComponent, title: 'Novo Sabor'},
+      { path: 'sabores/edit/:id', component: SaborFormComponent, resolve: {sabor: saborResolver}},
+
+      { path: 'telefones', component: telefoneListComponent, title: 'Lista de Telefones'},
+      { path: 'telefones/new', component: TelefoneFormComponent, title: 'Novo Telefone'},
+      { path: 'telefones/edit/:id', component: TelefoneFormComponent, resolve: {telefone: telefoneResolver}},
+
+      { path: 'usuarios', component: UsuarioListComponent, title: 'Lista de Usuarios'},
+      { path: 'usuarios/new', component: UsuarioFormComponent, title: 'Novo Usuario'},
+      { path: 'usuarios/edit/:id', component: UsuarioFormComponent, resolve: {usuario: usuarioResolver}},
+    ]
+    },
+
+    // {path:'carrinho', component: CarrinhoComponent},
+
+
+
 ];

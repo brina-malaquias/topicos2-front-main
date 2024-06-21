@@ -8,11 +8,11 @@
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Ohms</mat-label>
                     <input matInput type="text" formControlName="ohms">
-                    <mat-error *ngIf="formGroup.get('ohms')?.errors && 
+                    <mat-error *ngIf="formGroup.get('ohms')?.errors &&
                                       formGroup.get('ohms')?.touched">
                         @if (formGroup.get('ohms')?.errors?.['required']) {
                             <span>O ohms deve ser informado.</span>
-                        } 
+                        }
                         @if (formGroup.get('ohms')?.errors?.['minlength']) {
                             <span>O ohms deve possuir ao menos 1 caracteres.</span>
                         }
@@ -24,22 +24,23 @@
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button 
-                    color="primary" 
+            <button mat-raised-button
+                    color="primary"
+
                     (click)="salvar()">
                     <!-- [disabled]="formGroup.invalid">  -->
-                Salvar 
+                Salvar
             </button>
-            <button mat-raised-button 
+            <button mat-raised-button
                     *ngIf="formGroup?.get('id')?.value"
-                    color="warn" 
+                    color="warn"
                     (click)="excluir()"
-                    [disabled]="formGroup.invalid"> 
-                Excluir 
+                    [disabled]="formGroup.invalid">
+                Excluir
             </button>
-            <button mat-raised-button  
-                    routerLink="/resistencias"> 
-                Cancelar 
+            <button mat-raised-button
+                    routerLink="/admin/coils/new">
+                Cancelar
             </button>
 
         </mat-card-actions>

@@ -33,8 +33,8 @@ export class ResistenciaFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(resistencia && resistencia.id) ? resistencia.id : null],
-      ohms: [(resistencia && resistencia.ohms) ? resistencia.ohms : '', 
-            Validators.compose([Validators.required, 
+      ohms: [(resistencia && resistencia.ohms) ? resistencia.ohms : '',
+            Validators.compose([Validators.required,
                                 Validators.minLength(1)])]
     });
 
@@ -53,7 +53,7 @@ export class ResistenciaFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/resistencias'),
+        next: () => this.router.navigateByUrl('/admin/coils/new'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -113,7 +113,7 @@ export class ResistenciaFormComponent {
     }
     // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && 
+      if (errors.hasOwnProperty(errorName) &&
           this.errorMessages[controlName][errorName]) {
             return this.errorMessages[controlName][errorName];
       }

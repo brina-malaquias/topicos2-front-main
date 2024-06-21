@@ -7,6 +7,7 @@ export class NicSalt {
     nome!: string;
     valor!: number;
     descricao!: string;
-    sabor!: Sabor;
-    marca!: Marca;
+    listaSabor!: Sabor[];
+    listaMarca!: Marca[];
+    nomeImagem!: string;
 }

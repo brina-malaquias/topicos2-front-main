@@ -8,7 +8,8 @@ export class PodDescartavel {
     nome!: string;
     valor!: number;
     descricao!: string;
-    sabor!: Sabor;
-    puff!: Puff;
-    marca!: Marca;
+    listaSabor!: Sabor[];
+    listaPuff!: Puff[];
+    listaMarca!: Marca[];
+    nomeImagem!: string;
 }

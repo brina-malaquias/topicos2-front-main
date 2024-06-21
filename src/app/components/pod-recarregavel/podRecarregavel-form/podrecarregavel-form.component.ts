@@ -14,13 +14,14 @@ import { CorService } from '../../../services/cor.service';
 import { MarcaService } from '../../../services/marca.service';
 import { Cor } from '../../../models/cor.model';
 import { Marca } from '../../../models/marca.model';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-podrecarregavel-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
-    RouterModule, MatSelectModule],
+    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
+    RouterModule, MatSelectModule, MatIcon],
   templateUrl: './podrecarregavel-form.component.html',
   styleUrl: './podrecarregavel-form.component.css'
 })
@@ -31,30 +32,31 @@ export class PodRecarregavelFormComponent implements OnInit {
   marcas: Marca[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private podrecarregavelService: PodRecarregavelService,
-    private corService: CorService,
-    private marcaService: MarcaService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute) {
+              private podrecarregavelService: PodRecarregavelService,
+              private corService: CorService,
+              private marcaService: MarcaService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) {
 
     this.formGroup = formBuilder.group({
       id: [null],
       nome: ['', Validators.required],
       valor: ['', Validators.required],
       descricao: ['', Validators.required],
-      cor: [null],
-      marca: [null]
+      listaCor: [null],
+      listaMarca: [null]
     });
   }
+
   ngOnInit(): void {
     this.corService.findAll().subscribe(data => {
       this.cores = data;
       this.initializeForm();
     }),
-    this.marcaService.findAll().subscribe(data => {
-      this.marcas = data;
-      this.initializeForm();
-    });
+      this.marcaService.findAll().subscribe(data => {
+        this.marcas = data;
+        this.initializeForm();
+      });
   }
 
   initializeForm() {
@@ -63,27 +65,30 @@ export class PodRecarregavelFormComponent implements OnInit {
 
     // selecionando o estado
     const cor = this.cores
-      .find(cor => cor.id === (podrecarregavel?.cor?.id || null));
+      .find(cor => cor.id === (podrecarregavel?.listaCor[0]?.id || null));
     const marca = this.marcas
-      .find(marca => marca.id === (podrecarregavel?.marca?.id || null));
+      .find(marca => marca.id === (podrecarregavel?.listaMarca[0]?.id || null));
 
     this.formGroup = this.formBuilder.group({
       id: [(podrecarregavel && podrecarregavel.id) ? podrecarregavel.id : null],
       nome: [(podrecarregavel && podrecarregavel.nome) ? podrecarregavel.nome : '', Validators.required],
       valor: [(podrecarregavel && podrecarregavel.valor) ? podrecarregavel.valor : '', Validators.required],
       descricao: [(podrecarregavel && podrecarregavel.descricao) ? podrecarregavel.descricao : '', Validators.required],
-      cor: [cor],
-      marca: [marca]
+      listaCor: [podrecarregavel.listaCor],
+      listaMarca: [podrecarregavel.listaMarca]
     });
   }
 
   salvar() {
     if (this.formGroup.valid) {
+      this.formGroup.get("listaCor")?.setValue([this.formGroup.get("listaCor")?.value]);
+      this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const podrecarregavel = this.formGroup.value;
-      if (podrecarregavel.id ==null) {
+
+      if (podrecarregavel.id == null) {
         this.podrecarregavelService.insert(podrecarregavel).subscribe({
           next: (podrecarregavelCadastrado) => {
-            this.router.navigateByUrl('/podrecarregaveis');
+            this.router.navigateByUrl('/admin/podsRecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -92,7 +97,7 @@ export class PodRecarregavelFormComponent implements OnInit {
       } else {
         this.podrecarregavelService.update(podrecarregavel).subscribe({
           next: (podrecarregavelAlterado) => {
-            this.router.navigateByUrl('/podrecarregaveis');
+            this.router.navigateByUrl('/admin/podsRecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -108,7 +113,7 @@ export class PodRecarregavelFormComponent implements OnInit {
       if (podrecarregavel.id != null) {
         this.podrecarregavelService.delete(podrecarregavel).subscribe({
           next: () => {
-            this.router.navigateByUrl('/podrecarregaveis');
+            this.router.navigateByUrl('/admin/podsRecarregaveis');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -118,4 +123,17 @@ export class PodRecarregavelFormComponent implements OnInit {
     }
   }
 
+  openImagePicker() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('File selected:', file);
+    }
+  }
 }

@@ -16,13 +16,14 @@ import { SaborService } from '../../../services/sabor.service';
 import { MarcaService } from '../../../services/marca.service';
 import { Sabor } from '../../../models/sabor.model';
 import { Marca } from '../../../models/marca.model';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-nicSalt-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
-    RouterModule, MatSelectModule],
+    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
+    RouterModule, MatSelectModule, MatIcon],
   templateUrl: './nicSalt-form.component.html',
   styleUrl: './nicSalt-form.component.css'
 })
@@ -44,8 +45,8 @@ export class NicSaltFormComponent implements OnInit {
       nome: ['', Validators.required],
       valor: ['', Validators.required],
       descricao: ['', Validators.required],
-      sabor: [null],
-      marca: [null]
+      listaSabor: [null],
+      listaMarca: [null]
     });
   }
   ngOnInit(): void {
@@ -65,27 +66,30 @@ export class NicSaltFormComponent implements OnInit {
 
     // selecionando o estado
     const sabor = this.sabores
-      .find(sabor => sabor.id === (nicSalt?.sabor?.id || null));
+      .find(sabor => sabor.id === (nicSalt?.listaSabor[0]?.id || null));
     const marca = this.marcas
-      .find(marca => marca.id === (nicSalt?.marca?.id || null));
+      .find(marca => marca.id === (nicSalt?.listaMarca[0]?.id || null));
 
     this.formGroup = this.formBuilder.group({
       id: [(nicSalt && nicSalt.id) ? nicSalt.id : null],
       nome: [(nicSalt && nicSalt.nome) ? nicSalt.nome : '', Validators.required],
       valor: [(nicSalt && nicSalt.valor) ? nicSalt.valor : '', Validators.required],
       descricao: [(nicSalt && nicSalt.descricao) ? nicSalt.descricao : '', Validators.required],
-      sabor: [sabor],
-      marca: [marca]
+      listaSabor: [nicSalt.listaSabor],
+      listaMarca: [nicSalt.listaMarca]
     });
   }
 
   salvar() {
     if (this.formGroup.valid) {
+      this.formGroup.get("listaSabor")?.setValue([this.formGroup.get("listaSabor")?.value]);
+      this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const nicSalt = this.formGroup.value;
+
       if (nicSalt.id ==null) {
         this.nicSaltService.insert(nicSalt).subscribe({
           next: (nicSaltCadastrado) => {
-            this.router.navigateByUrl('/nicsalts');
+            this.router.navigateByUrl('/admin/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -94,7 +98,7 @@ export class NicSaltFormComponent implements OnInit {
       } else {
         this.nicSaltService.update(nicSalt).subscribe({
           next: (nicSaltAlterado) => {
-            this.router.navigateByUrl('/nicsalts');
+            this.router.navigateByUrl('/admin/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -110,13 +114,27 @@ export class NicSaltFormComponent implements OnInit {
       if (nicSalt.id != null) {
         this.nicSaltService.delete(nicSalt).subscribe({
           next: () => {
-            this.router.navigateByUrl('/nicsalts');
+            this.router.navigateByUrl('/admin/nicsalts');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
           }
         });
       }
+    }
+  }
+
+  openImagePicker() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('File selected:', file);
     }
   }
 

@@ -18,7 +18,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   styleUrl: './telefone-list.component.css'
 })
 export class telefoneListComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'nome', 'sigla', 'acao'];
+  displayedColumns: string[] = ['id', 'codigoArea', 'numero', 'acao'];
   telefones: Telefone[] = [];
 
   // variaveis de controle de paginacao

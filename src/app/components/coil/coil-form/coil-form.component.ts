@@ -15,13 +15,14 @@ import { Marca } from '../../../models/marca.model';
 import { Resistencia } from '../../../models/resistencia';
 import { Coil } from '../../../models/coil.models';
 import { ResistenciaService } from '../../../services/resistencia.service';
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-coil-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
-    RouterModule, MatSelectModule],
+    imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
+        MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
+        RouterModule, MatSelectModule, MatIcon],
   templateUrl: './coil-form.component.html',
   styleUrl: './coil-form.component.css'
 })
@@ -43,12 +44,12 @@ export class CoilFormComponent implements OnInit {
       nome: ['', Validators.required],
       valor: ['', Validators.required],
       descricao: ['', Validators.required],
-      resistencia: [null],
-      marca: [null]
+      listaResistencia: [null],
+      listaMarca: [null]
     });
   }
   ngOnInit(): void {
-    this.resistenciaService.findAll().subscribe(data => {
+    this.resistenciaService.findAll(0,20).subscribe(data => {
       this.resistencias = data;
       this.initializeForm();
     }),
@@ -56,6 +57,9 @@ export class CoilFormComponent implements OnInit {
       this.marcas = data;
       this.initializeForm();
     });
+
+    console.log(this.resistencias);
+    console.log(this.marcas);
   }
 
   initializeForm() {
@@ -63,28 +67,31 @@ export class CoilFormComponent implements OnInit {
     const coil: Coil = this.activatedRoute.snapshot.data['coil'];
 
     // selecionando o estado
-    const resistencia = this.resistencias
-      .find(resistencia => resistencia.id === (coil?.resistencia?.id || null));
-    const marca = this.marcas
-      .find(marca => marca.id === (coil?.marca?.id || null));
+     const resistencia = this.resistencias
+       .find(resistencia => resistencia.id === (coil?.listaResistencia[0]?.id || null));
+     const marca = this.marcas
+       .find(marca => marca.id === (coil?.listaMarca[0]?.id || null));
 
     this.formGroup = this.formBuilder.group({
       id: [(coil && coil.id) ? coil.id : null],
       nome: [(coil && coil.nome) ? coil.nome : '', Validators.required],
       valor: [(coil && coil.valor) ? coil.valor : '', Validators.required],
       descricao: [(coil && coil.descricao) ? coil.descricao : '', Validators.required],
-      resistencia: [resistencia],
-      marca: [marca]
+      listaResistencia: [coil.listaResistencia],
+      listaMarca: [coil.listaMarca]
     });
   }
 
   salvar() {
     if (this.formGroup.valid) {
+      this.formGroup.get("listaResistencia")?.setValue([this.formGroup.get("listaResistencia")?.value]);
+      this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const coil = this.formGroup.value;
+
       if (coil.id ==null) {
         this.coilService.insert(coil).subscribe({
           next: (coilCadastrado) => {
-            this.router.navigateByUrl('/coils');
+            this.router.navigateByUrl('/admin/coils');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -93,7 +100,7 @@ export class CoilFormComponent implements OnInit {
       } else {
         this.coilService.update(coil).subscribe({
           next: (coilAlterado) => {
-            this.router.navigateByUrl('/coils');
+            this.router.navigateByUrl('/admin/coils');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -109,13 +116,27 @@ export class CoilFormComponent implements OnInit {
       if (coil.id != null) {
         this.coilService.delete(coil).subscribe({
           next: () => {
-            this.router.navigateByUrl('/coils');
+            this.router.navigateByUrl('/admin/coils');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
           }
         });
       }
+    }
+  }
+
+  openImagePicker() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  onFileSelected(event: Event) {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('File selected:', file);
     }
   }
 
