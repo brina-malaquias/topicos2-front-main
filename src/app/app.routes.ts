@@ -42,6 +42,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {UserTemplateComponent} from "./template/user-template/user-template.component";
 import {LoginComponent} from "./components/auth/components/login/login.component";
 import {AdminTemplateComponent} from "./template/admin-template/admin-template.component";
+import {CarrinhoComponent} from "./components/carrinho/carrinho.component";
 // import {CarrinhoComponent} from "./components/carrinho/carrinho.component";
 
 export const routes: Routes = [
@@ -52,7 +53,8 @@ export const routes: Routes = [
     component: UserTemplateComponent,
     title: 'e-commerce',
     children:[
-      {path :'', component: HomeComponent, title: 'MalakaPods'}
+      {path :'', component: HomeComponent, title: 'MalakaPods'},
+      {path :'carrinho', component: CarrinhoComponent, title:'Carrinho'}
     ]
     },
 

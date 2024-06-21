@@ -178,15 +178,7 @@ button[mat-raised-button] {
   width: 80px;
   font-size: 12px;
   box-shadow: none;
-  border: 1px solid var(--default-green);
-}
-
-.mat-mdc-radio-button.mat-accent {
-  --mdc-radio-selected-focus-icon-color: var(--default-green);
-  --mdc-radio-selected-hover-icon-color: var(--default-green);
-  --mdc-radio-selected-icon-color: var(--default-green);
-  --mdc-radio-selected-pressed-icon-color: var(--default-green);
-  --mat-radio-checked-ripple-color: var(--default-green);
+  border: 1px solid black;
 }
 
 .pagamento {

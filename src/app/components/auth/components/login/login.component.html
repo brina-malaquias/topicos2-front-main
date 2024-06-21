@@ -1,6 +1,6 @@
 <div class="login-container">
   <div class="login-box">
-    <img class="login-icon" src="/assets/icons/passkey.svg" alt="Passkey">
+    <span> MalakaPods </span>
     <h2 class="login-title">Bem-vindo</h2>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="login-input">
@@ -11,7 +11,8 @@
         <input matInput type="password" placeholder="Senha" formControlName="password" required>
         <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
       </mat-form-field>
-      <button mat-raised-button class="login-button" color="primary" type="submit">Login</button>
+      <button mat-raised-button class="login-button" type="submit">Login</button>
+      <button mat-raised-button id="create-account-button" type="submit" routerLink="/criar-conta">Cria Conta</button>
     </form>
   </div>
 </div>
