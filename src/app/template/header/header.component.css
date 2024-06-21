@@ -1,0 +1,52 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: black;
+  height: 130px ;
+  color: white;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  color: white;
+  font-family: Gideon;
+  padding-left: 20px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+.header-center {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+mat-form-field {
+  width: 660px;
+  height: 55px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+input.mat-input-element {
+  color: black; /* Cor do texto de entrada */
+}
+
+mat-icon {
+  color: white; /* Cor dos ícones */
+}
+
+.larger-icon {
+  font-size: 28px; /* Altere o tamanho conforme desejado */
+}

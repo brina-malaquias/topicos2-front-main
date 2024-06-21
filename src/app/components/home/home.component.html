@@ -1,0 +1,19 @@
+<mat-card>
+<div class="container responsive-grid">
+  <mat-card *ngFor="let card of cards()">
+
+    <div class="selecionavel" (click)="showProduto(card.id)">
+      <img mat-card-image [src]="card.urlImagem">
+
+      <mat-card-content class="centered-text"> {{card.titulo}} </mat-card-content>
+      <br />
+      <mat-card-title class="centered-text"> {{card.preco | currency:'BRL'}} </mat-card-title>
+    </div>
+
+    <mat-card-footer>
+      <button mat-flat-button (click)="adicionarAoCarrinho(card)">Adicionar ao carrinho</button>
+    </mat-card-footer>
+
+  </mat-card>
+</div>
+</mat-card>
