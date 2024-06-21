@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { NicSalt } from '../../../models/nicSalt.model';
 import { NicSaltService } from '../../../services/nicSalt.service';
-import {MatPaginator, MatPaginatorModule, PageEvent} from '@angular/material/paginator';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {CoilService} from "../../../services/coil.service";
 import {MatDialog} from "@angular/material/dialog";

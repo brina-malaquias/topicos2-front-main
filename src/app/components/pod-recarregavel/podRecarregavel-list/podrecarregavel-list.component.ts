@@ -16,8 +16,8 @@ import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'app-podrecarregavel-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
-  , MatButtonModule, RouterModule],
+    imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
+        , MatButtonModule, RouterModule, MatPaginator],
   templateUrl: './podrecarregavel-list.component.html',
   styleUrl: './podrecarregavel-list.component.css'
 })

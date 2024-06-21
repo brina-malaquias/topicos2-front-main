@@ -26,7 +26,7 @@
 
               <mat-form-field appearance="fill" class="full-width-input">
                 <mat-label>Valor</mat-label>
-                <input matInput type="text" formControlName="valor">
+                <input matInput type="number" formControlName="valor">
                 <mat-error *ngIf="formGroup.get('valor')
                               && formGroup.get('valor')?.invalid
                               && formGroup.get('valor')?.touched">
@@ -56,7 +56,7 @@
                 </mat-select>
               </mat-form-field>
 
-              <button mat-raised-button color="primary" routerLink="/cores/new" class="full-width-button">
+              <button mat-raised-button color="primary" routerLink="/admin/cores/new" class="full-width-button">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
@@ -73,7 +73,7 @@
                 </mat-select>
               </mat-form-field>
 
-              <button mat-raised-button routerLink="/marcas/new" class="full-width-button">
+              <button mat-raised-button routerLink="/admin/marcas/new" class="full-width-button">
                 <mat-icon>add</mat-icon>
               </button>
             </div>

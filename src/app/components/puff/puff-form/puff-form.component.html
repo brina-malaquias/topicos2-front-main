@@ -8,11 +8,11 @@
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Quantidade</mat-label>
                     <input matInput type="number" formControlName="quantidade">
-                    <mat-error *ngIf="formGroup.get('quantidade')?.errors && 
+                    <mat-error *ngIf="formGroup.get('quantidade')?.errors &&
                                       formGroup.get('quantidade')?.touched">
                         @if (formGroup.get('quantidade')?.errors?.['required']) {
                             <span>A quantidade deve ser informado.</span>
-                        } 
+                        }
                         @if (formGroup.get('quantidade')?.errors?.['minlength']) {
                             <span>A quantidade deve possuir ao menos 3 caracteres.</span>
                         }
@@ -24,22 +24,22 @@
             </form>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-raised-button 
-                    color="primary" 
+            <button mat-raised-button
+                    color="primary"
                     (click)="salvar()">
                     <!-- [disabled]="formGroup.invalid">  -->
-                Salvar 
+                Salvar
             </button>
-            <button mat-raised-button 
+            <button mat-raised-button
                     *ngIf="formGroup?.get('id')?.value"
-                    color="warn" 
+                    color="warn"
                     (click)="excluir()"
-                    [disabled]="formGroup.invalid"> 
-                Excluir 
+                    [disabled]="formGroup.invalid">
+                Excluir
             </button>
-            <button mat-raised-button  
-                    routerLink="/puffs"> 
-                Cancelar 
+            <button mat-raised-button
+                    routerLink="/admin/puffs">
+                Cancelar
             </button>
 
         </mat-card-actions>

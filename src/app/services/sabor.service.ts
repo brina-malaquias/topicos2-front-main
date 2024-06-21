@@ -36,9 +36,9 @@ export class SaborService {
   }
 
   insert(sabor: Sabor): Observable<Sabor> {
-    return this.httpClient.post<Sabor>(this.baseUrl, sabor);
+    return this.httpClient.post<Sabor>(`${this.baseUrl}`, sabor);
   }
-  
+
   update(sabor: Sabor): Observable<Sabor> {
     return this.httpClient.put<Sabor>(`${this.baseUrl}/${sabor.id}`, sabor);
   }

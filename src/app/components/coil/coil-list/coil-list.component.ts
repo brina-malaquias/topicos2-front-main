@@ -15,8 +15,8 @@ import {catchError, tap, throwError} from "rxjs";
 @Component({
   selector: 'app-coil-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
-  , MatButtonModule, RouterModule],
+    imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
+        , MatButtonModule, RouterModule, MatPaginator],
   templateUrl: './coil-list.component.html',
   styleUrl: './coil-list.component.css'
 })

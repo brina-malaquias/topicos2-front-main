@@ -90,3 +90,7 @@ button.full-width-button {
   margin-top: 20px;
   width: 88%
 }
+
+.item button {
+  margin-left: 7px;
+}

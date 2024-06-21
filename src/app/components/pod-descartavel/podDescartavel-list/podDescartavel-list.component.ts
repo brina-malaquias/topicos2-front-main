@@ -17,7 +17,7 @@ import {catchError, tap, throwError} from "rxjs";
   selector: 'app-podDescartavel-list',
   standalone: true,
   imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule
-  , MatButtonModule, RouterModule],
+    , MatButtonModule, RouterModule, MatPaginator],
   templateUrl: './podDescartavel-list.component.html',
   styleUrl: './podDescartavel-list.component.css'
 })

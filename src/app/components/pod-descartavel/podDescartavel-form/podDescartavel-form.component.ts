@@ -92,7 +92,7 @@ export class PodDescartavelFormComponent implements OnInit {
   salvar() {
     if (this.formGroup.valid) {
       this.formGroup.get("listaSabor")?.setValue([this.formGroup.get("listaSabor")?.value]);
-      this.formGroup.get("listaPuffs")?.setValue([this.formGroup.get("listaPuffs")?.value]);
+      this.formGroup.get("listaPuff")?.setValue([this.formGroup.get("listaPuff")?.value]);
       this.formGroup.get("listaMarca")?.setValue([this.formGroup.get("listaMarca")?.value]);
       const podDescartavel = this.formGroup.value;
 

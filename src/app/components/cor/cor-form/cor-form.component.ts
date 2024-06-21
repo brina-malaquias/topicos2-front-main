@@ -35,8 +35,8 @@ export class CorFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(cor && cor.id) ? cor.id : null],
-      cor: [(cor && cor.cor) ? cor.cor : '', 
-            Validators.compose([Validators.required, 
+      cor: [(cor && cor.cor) ? cor.cor : '',
+            Validators.compose([Validators.required,
                                 Validators.minLength(3)])]
     });
 
@@ -55,7 +55,7 @@ export class CorFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/cores'),
+        next: () => this.router.navigateByUrl('/admin/cores'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -92,7 +92,7 @@ export class CorFormComponent {
       if (cor.id != null) {
         this.corService.delete(cor).subscribe({
           next: () => {
-            this.router.navigateByUrl('/cor');
+            this.router.navigateByUrl('/admin/cores');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -115,7 +115,7 @@ export class CorFormComponent {
     }
     // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && 
+      if (errors.hasOwnProperty(errorName) &&
           this.errorMessages[controlName][errorName]) {
             return this.errorMessages[controlName][errorName];
       }

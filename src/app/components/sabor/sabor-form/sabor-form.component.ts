@@ -35,8 +35,8 @@ export class SaborFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(sabor && sabor.id) ? sabor.id : null],
-      sabor: [(sabor && sabor.sabor) ? sabor.sabor : '', 
-            Validators.compose([Validators.required, 
+      sabor: [(sabor && sabor.sabor) ? sabor.sabor : '',
+            Validators.compose([Validators.required,
                                 Validators.minLength(3)])]
     });
 
@@ -55,7 +55,7 @@ export class SaborFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/sabores'),
+        next: () => this.router.navigateByUrl('/admin/sabores'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -92,7 +92,7 @@ export class SaborFormComponent {
       if (sabor.id != null) {
         this.saborService.delete(sabor).subscribe({
           next: () => {
-            this.router.navigateByUrl('/sabor');
+            this.router.navigateByUrl('/admin/sabores');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -115,7 +115,7 @@ export class SaborFormComponent {
     }
     // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && 
+      if (errors.hasOwnProperty(errorName) &&
           this.errorMessages[controlName][errorName]) {
             return this.errorMessages[controlName][errorName];
       }

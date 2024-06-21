@@ -33,10 +33,10 @@ export class MarcaFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(marca && marca.id) ? marca.id : null],
-      nome: [(marca && marca.nome) ? marca.nome : '', 
-            Validators.compose([Validators.required, 
+      nome: [(marca && marca.nome) ? marca.nome : '',
+            Validators.compose([Validators.required,
                                 Validators.minLength(4)])],
-      descricao: [(marca && marca.descricao) ? marca.descricao : '', 
+      descricao: [(marca && marca.descricao) ? marca.descricao : '',
             Validators.compose([Validators.required,
                                 Validators.minLength(2)])]
     });
@@ -56,7 +56,7 @@ export class MarcaFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/marcas'),
+        next: () => this.router.navigateByUrl('/admin/marcas'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -93,7 +93,7 @@ export class MarcaFormComponent {
       if (marca.id != null) {
         this.marcaService.delete(marca).subscribe({
           next: () => {
-            this.router.navigateByUrl('/marca');
+            this.router.navigateByUrl('/admin/marcas');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -122,7 +122,7 @@ export class MarcaFormComponent {
     }
     // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && 
+      if (errors.hasOwnProperty(errorName) &&
           this.errorMessages[controlName][errorName]) {
             return this.errorMessages[controlName][errorName];
       }

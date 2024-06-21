@@ -33,8 +33,8 @@ export class PuffFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(puff && puff.id) ? puff.id : null],
-      quantidade: [(puff && puff.quantidade) ? puff.quantidade : '', 
-            Validators.compose([Validators.required, 
+      quantidade: [(puff && puff.quantidade) ? puff.quantidade : '',
+            Validators.compose([Validators.required,
                                 Validators.minLength(3)])]
     });
 
@@ -53,7 +53,7 @@ export class PuffFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/puffs'),
+        next: () => this.router.navigateByUrl('/admin/puffs'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
@@ -90,7 +90,7 @@ export class PuffFormComponent {
       if (puff.id != null) {
         this.puffService.delete(puff).subscribe({
           next: () => {
-            this.router.navigateByUrl('/puff');
+            this.router.navigateByUrl('/admin/puffs');
           },
           error: (err) => {
             console.log('Erro ao Excluir' + JSON.stringify(err));
@@ -113,7 +113,7 @@ export class PuffFormComponent {
     }
     // retorna a mensagem de erro
     for (const errorName in errors) {
-      if (errors.hasOwnProperty(errorName) && 
+      if (errors.hasOwnProperty(errorName) &&
           this.errorMessages[controlName][errorName]) {
             return this.errorMessages[controlName][errorName];
       }

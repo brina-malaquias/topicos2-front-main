@@ -53,7 +53,7 @@ export class ResistenciaFormComponent {
 
       // realiza a operacao e trata a resposta.
       operacao.subscribe({
-        next: () => this.router.navigateByUrl('/admin/coils/new'),
+        next: () => this.router.navigateByUrl('/admin/resistencias'),
         error: (error: HttpErrorResponse) => {
           console.log('Erro ao salvar' + JSON.stringify(error));
           this.tratarErros(error);
